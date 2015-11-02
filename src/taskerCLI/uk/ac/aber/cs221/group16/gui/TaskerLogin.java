@@ -62,6 +62,21 @@ public class TaskerLogin extends JFrame {
 		JButton loginButton = new JButton("Login ");
 		//Offline 
 		JButton offlineButton = new JButton("Offline");
+		// Login Button Action Listener, still working on it
+		loginButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String name = "rich"; 	
+				String passowrd = "password"; 
+				name= userName.getText();
+				if (passowrd.equals(passwordField)){
+					TaskPage tp = new TaskPage();
+					tp.setVisible(true);
+						frame.dispose();
+					
+				}
+				
+			}
+		});
 		
 		// ADD swing Components
 
