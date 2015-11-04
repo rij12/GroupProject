@@ -1,7 +1,7 @@
 # CS-Group- 16 Project
 
 Members : -Rhodri Pearce (Project Leader)
-          -Richard Price-Jones
+          \n-Richard Price-Jones
           -Max Limbu (Deputy QA)
           -Emil Ramsdal
           -Greg Sharpe
