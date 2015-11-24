@@ -8,21 +8,24 @@ public class Task {
 	private int id;
 	private String user;
 	private String taskInfo;
-	private Date deadLine;
+	private String deadLine;
 	private String status;
-	private String headLine;
+	private String title;
+	private String startDate;
 	
 	
 	
 	
-	public Task(int theId, String theUser, String theTaskInfo, Date date, String theStatus, String theHeadLine){
+	public Task(int theId, String theUser, String theTaskInfo, String date, String theStatus, String theTitle, String theStartDate){
 
 		id = theId;
 		user = theUser;
 		taskInfo = theTaskInfo;
 		deadLine = date;	
 		status = theStatus;
-		headLine = theHeadLine;
+		title = theTitle;
+		startDate = theStartDate;
+		
 	}
 	
 	public int getId() {
@@ -42,16 +45,6 @@ public class Task {
 	}
 
 
-	public Date getDeadLine() {
-		return deadLine;
-	}
-
-	public void setDeadLine(Date deadLine) {
-		this.deadLine = deadLine;
-	}
-	
-	
-
 	public String getStatus() {
 		return status;
 	}
@@ -69,19 +62,29 @@ public class Task {
 	public void setTaskInfo(String taskInfo) {
 		this.taskInfo = taskInfo;
 	}
+	
 
-	public String getHeadLine() {
-		return headLine;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setHeadLine(String headLine) {
-		this.headLine = headLine;
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
 	}
 
 	@Override
 	public String toString() {
 		return "Task [id=" + id + ", user=" + user + ", taskInfo=" + taskInfo
-				+ ", deadLine=" + deadLine + ", status=" + status + "] \n";
+				+ ", deadLine=" + deadLine + ", status=" + status + ", title="
+				+ title + ", startDate=" + startDate + "]\n";
 	}
 
 
