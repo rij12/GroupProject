@@ -3,10 +3,8 @@ package uk.ac.aber.cs221.group16.authenticaion;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
-import java.util.Date;
-import java.util.Properties;
 
-import tasker.Task;
+import uk.ac.aber.cs221.group16.controller.Task;
 
 
 
@@ -29,6 +27,8 @@ public class DatabaseConnect {
 	private String USERNAME;
 	private String PASSWORD;
 	private Connection connection = null;
+	
+	public int g = 4;
 	
 	
 	

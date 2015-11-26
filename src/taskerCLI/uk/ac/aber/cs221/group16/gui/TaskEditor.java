@@ -1,12 +1,15 @@
-package gui;
+package uk.ac.aber.cs221.group16.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Button;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import net.miginfocom.swing.MigLayout;
+
 import javax.swing.JTextPane;
 import javax.swing.JTextArea;
 import javax.swing.JList;
@@ -17,9 +20,15 @@ import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import javax.swing.AbstractAction;
+
 import java.awt.event.ActionEvent;
+
 import javax.swing.Action;
 import javax.swing.JButton;
+
+import uk.ac.aber.cs221.group16.authentication.DatabaseConnect;
+import uk.ac.aber.cs221.group16.controller.Load;
+
 import java.awt.event.ActionListener;
 /**
  * <p>
@@ -38,14 +47,34 @@ public class TaskEditor extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtCurrentTask;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
+	// Used for diagrams 
+	  
+	 TaskPage taskPage = new TaskPage ();
+	public int test5 = 0; 
 
+	
 
+	
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		
+		
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
+				
+				
+				Load load = new Load();
+				load.something = 3;
+				
+				DatabaseConnect connect = new DatabaseConnect();
+				
+				connect.g = 3;
+				
+				
+				
 				try {
 					TaskEditor frame = new TaskEditor();
 					frame.setVisible(true);
@@ -78,15 +107,16 @@ public class TaskEditor extends JFrame {
 		txtCurrentTask.setText("Current Task");
 		panel.add(txtCurrentTask, "cell 0 1,alignx center,aligny center");
 		txtCurrentTask.setColumns(10);
-		// Radio buttons
-		// need to get data from the database
-		JRadioButton completedadioButton = new JRadioButton("Completed\r\n");
-		buttonGroup.add(completedadioButton);
-		panel.add(completedadioButton, "flowx,cell 1 1,alignx center,aligny center");
+		// Set a task to complete
+		JButton setToComplete = new JButton("Completed ");
+		// Login Button Action Listener
+		setToComplete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg) {
+				
+					
+				}
+						});
 		
-		JRadioButton onGoingRadioButton = new JRadioButton("on-going");
-		buttonGroup.add(onGoingRadioButton);
-		panel.add(onGoingRadioButton, "cell 1 1,alignx center,aligny center");
 		//Text Box
 		// Needs database input
 		JEditorPane editorPane = new JEditorPane();

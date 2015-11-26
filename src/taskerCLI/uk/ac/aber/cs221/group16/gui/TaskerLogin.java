@@ -1,8 +1,12 @@
-package gui;
+package uk.ac.aber.cs221.group16.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.Window;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -10,6 +14,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
+
+
+
+
+import uk.ac.aber.cs221.group16.authenticaion.DatabaseConnect;
+import uk.ac.aber.cs221.group16.controller.Load;
+import uk.ac.aber.cs221.group16.controller.MainFrame;
 // External 
 import net.miginfocom.swing.MigLayout;
 /**
@@ -21,16 +33,22 @@ import net.miginfocom.swing.MigLayout;
  * </P>
  * @author Richard Price-Jones
  * @see MainFrame.java
- * @version 1.0
+ * @version 1.2 
+ * Comments we be fixed, they are for testing and editing for edit
  */
 public class TaskerLogin extends JFrame { 
+	//ONLY FOR TESTING
 	
-	
+	public int test1 =3; 
+	// Will be final when project is assembled 
 	private static final String HEADER_IMG_Path = "/tasker_1.0.jpg";
 	private static final String BODY_IMG_PATH = "/LoginMenuBackground_800_by_500.jpg";
 	private static final String HEADER_BACKGROUND_IMG_PATH = "/HeaderBackground.jpg";
 
 	public TaskerLogin() {
+
+		
+		
 		// Creating the main frame
 		JFrame frame = new JFrame("Tasker CLI");
 
@@ -60,23 +78,26 @@ public class TaskerLogin extends JFrame {
 		
 		// Login Button
 		JButton loginButton = new JButton("Login ");
-		//Offline 
-		JButton offlineButton = new JButton("Offline");
-		// Login Button Action Listener, still working on it
+		// Login Button Action Listener
 		loginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String name = "rich"; 	
 				String passowrd = "password"; 
+				TaskPage taskPage = new TaskPage ();
 				name= userName.getText();
 				if (passowrd.equals(passwordField)){
 					TaskPage tp = new TaskPage();
 					tp.setVisible(true);
 						frame.dispose();
+						
 					
 				}
 				
 			}
 		});
+		
+		//Offline 
+		JButton offlineButton = new JButton("Offline");
 		
 		// ADD swing Components
 
@@ -99,6 +120,7 @@ public class TaskerLogin extends JFrame {
 		frame.setLocation(500, 300);
 		frame.setResizable(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setTitle("Tasker CLI");
 	}
 
 }

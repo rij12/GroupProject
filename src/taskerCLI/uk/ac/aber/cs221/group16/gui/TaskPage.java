@@ -1,6 +1,7 @@
-package gui;
+package uk.ac.aber.cs221.group16.gui;
 
 import java.awt.BorderLayout;
+import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -13,6 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import uk.ac.aber.cs221.group16.authenticaion.DatabaseConnect;
 import net.miginfocom.swing.MigLayout;
 
 public class TaskPage extends JFrame {
@@ -21,22 +23,35 @@ public class TaskPage extends JFrame {
 	private JTextField txtSearchField;
 	private JTable table;
 	private JButton editTaskButton;
-
+	
+	// Delete this is only for testing 
+	
+	public int test3 = 0;
+	public int test2 = 0; 
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * Launch the application.
 //	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					TaskPage frame = new TaskPage();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+	public static void main(String[] args) {
+		TaskEditor taskedit2 = new TaskEditor();
+		taskedit2.test5 = 3;
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					TaskPage frame = new TaskPage();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
 	/**
 	 * Create the frame.
@@ -91,6 +106,12 @@ public class TaskPage extends JFrame {
 		editTaskButton = new JButton("New button");
 		editTaskButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
+				DatabaseConnect connect = new DatabaseConnect();
+				
+				connect.g = 3;
+				
+				
 			}
 		});
 		panel.add(editTaskButton, "cell 0 2,alignx center,aligny center");
