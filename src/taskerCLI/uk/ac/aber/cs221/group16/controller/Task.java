@@ -70,6 +70,16 @@ public class Task {
 		this.title = title;
 	}
 
+	
+	
+	public String getDeadLine() {
+		return deadLine;
+	}
+
+	public void setDeadLine(String deadLine) {
+		this.deadLine = deadLine;
+	}
+
 	public String getStartDate() {
 		return startDate;
 	}

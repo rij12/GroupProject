@@ -6,6 +6,11 @@ import java.awt.Image;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+<<<<<<< Updated upstream
+=======
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+>>>>>>> Stashed changes
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -19,6 +24,11 @@ import javax.swing.JTextField;
 
 
 
+<<<<<<< Updated upstream
+=======
+
+
+>>>>>>> Stashed changes
 import uk.ac.aber.cs221.group16.authenticaion.DatabaseConnect;
 import uk.ac.aber.cs221.group16.controller.Load;
 import uk.ac.aber.cs221.group16.controller.MainFrame;
@@ -33,8 +43,15 @@ import net.miginfocom.swing.MigLayout;
  * </P>
  * @author Richard Price-Jones
  * @see MainFrame.java
+<<<<<<< Updated upstream
  * @version 1.2 
  * Comments we be fixed, they are for testing and editing for edit
+=======
+ * @version 1.3
+ * Comments we be fixed, they are for testing and editing for edit
+ * 
+ * Edited by Emil
+>>>>>>> Stashed changes
  */
 public class TaskerLogin extends JFrame { 
 	//ONLY FOR TESTING
@@ -44,9 +61,18 @@ public class TaskerLogin extends JFrame {
 	private static final String HEADER_IMG_Path = "/tasker_1.0.jpg";
 	private static final String BODY_IMG_PATH = "/LoginMenuBackground_800_by_500.jpg";
 	private static final String HEADER_BACKGROUND_IMG_PATH = "/HeaderBackground.jpg";
+<<<<<<< Updated upstream
 
 	public TaskerLogin() {
 
+=======
+	public DatabaseConnect connection;
+
+	public TaskerLogin() {
+		
+		connection = new DatabaseConnect();
+	
+>>>>>>> Stashed changes
 		
 		
 		// Creating the main frame
@@ -64,9 +90,15 @@ public class TaskerLogin extends JFrame {
 		header.setIcon(new ImageIcon(headerImg));
 				
 		// Header background
+<<<<<<< Updated upstream
 		JLabel headerBackGround = new JLabel("");
 		Image headerBackGroundImg = new ImageIcon(this.getClass().getResource(HEADER_BACKGROUND_IMG_PATH)).getImage();
 		header.setIcon(new ImageIcon(headerBackGroundImg));
+=======
+//		JLabel headerBackGround = new JLabel("");
+//		Image headerBackGroundImg = new ImageIcon(this.getClass().getResource(HEADER_BACKGROUND_IMG_PATH)).getImage();
+//		header.setIcon(new ImageIcon(headerBackGroundImg));
+>>>>>>> Stashed changes
 		
 		// User name
 		JLabel usernameLabel = new JLabel("Username:");
@@ -80,6 +112,7 @@ public class TaskerLogin extends JFrame {
 		JButton loginButton = new JButton("Login ");
 		// Login Button Action Listener
 		loginButton.addActionListener(new ActionListener() {
+<<<<<<< Updated upstream
 			public void actionPerformed(ActionEvent arg0) {
 				String name = "rich"; 	
 				String passowrd = "password"; 
@@ -102,6 +135,46 @@ public class TaskerLogin extends JFrame {
 		// ADD swing Components
 
 		panel.add(headerBackGround, "cell 0 0,grow");
+=======
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				connection.logIn(userName.getText());
+				if(connection.isLoggedIn()){
+					
+					TaskPage mainPage = new TaskPage(connection);
+					frame.setVisible(false);
+					mainPage.setVisible(true);
+					System.err.println("LoginPage to TaskPage");
+					dispose();
+				}
+				else{
+				System.err.println("Wrong email");
+				}
+			}
+		});
+				
+				
+		
+		//Offline 
+		JButton offlineButton = new JButton("Offline");
+		offlineButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				TaskPage mainPage = new TaskPage(connection);
+				frame.setVisible(false);
+				mainPage.setVisible(true);
+				System.err.println("Working!!");
+				dispose();
+				
+			}
+		});
+		// ADD swing Components
+
+//		panel.add(headerBackGround, "cell 0 0,grow");
+>>>>>>> Stashed changes
 		panel.add(header, "cell 1 0,alignx center,aligny center");
 		
 		//

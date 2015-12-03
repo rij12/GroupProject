@@ -9,7 +9,7 @@ import uk.ac.aber.cs221.group16.controller.Task;
 
 
 /**
- * @author emil
+ * @author Emil Ramsdal
  *
  */
 public class DatabaseConnect {
@@ -18,9 +18,10 @@ public class DatabaseConnect {
 		//private static final String DATABASE_URL = "jdbc:mysql://192.168.1.100:3306/tasker"; // local server
 	//private static final String DATABASE_URL = "jdbc:mysql://89.168.25.87:3306/tasker"; // 
 	private static final String DATABASE_URL = "jdbc:mysql://db.dcs.aber.ac.uk/csgp_16_15_16"; // 
-	private static String password = "fPeeWanK";
-	private static String username = "csgpadm_16";
+	private static String dbPassword = "fPeeWanK";
+	private static String dbUsername = "csgpadm_16";
 	private boolean loggedIn = false;
+	private int userId;
 	
 	
 	// for the userlogin 
@@ -28,12 +29,16 @@ public class DatabaseConnect {
 	private String PASSWORD;
 	private Connection connection = null;
 	
+<<<<<<< Updated upstream
 	public int g = 4;
 	
 	
 	
 	
 	
+=======
+
+>>>>>>> Stashed changes
 	/**
 	 * 
 	 * @param theUsername
@@ -43,19 +48,50 @@ public class DatabaseConnect {
 	public DatabaseConnect(){
 
 	}
+
+	public boolean logIn(String email){
+
+//		System.out.println("login");
+
+		try{
+			Connection conn = connect();
+			Statement stmt = conn.createStatement();
+
+			ResultSet res = stmt.executeQuery("SELECT * FROM members WHERE email='"+ email +"'");
+			if (!res.isBeforeFirst()){
+				System.out.println("Wrong email ");
+				loggedIn = false;
+			}
+			else{
+				while(res.next()){
+					userId = res.getInt("id");
+					System.out.println("Logged in");
+					System.out.println(userId);
+					loggedIn = true;
+				}
+			}
+
+		}catch(Exception e){
+		}
+		disconnect();
+
+		return loggedIn;
+	}
+
+
 	
 
 	/**
 	 * @return tasks that it get from the server.
 	 * only for test purposes
 	 */
-	private ArrayList<Task> getTasks2(){
+	public ArrayList<Task> getTasks2(){
 		ArrayList<Task> tasks = new ArrayList<Task>();
 
 		try{
 
 			Statement st = connect().createStatement();
-			ResultSet res = st.executeQuery("SELECT * FROM  tasks");
+			ResultSet res = st.executeQuery("SELECT * FROM tasks");
 			while (res.next()) {
 				int id = res.getInt("TaskID");
 				String start = res.getString("StartDate");
@@ -71,6 +107,7 @@ public class DatabaseConnect {
 			e.printStackTrace();
 
 		}
+		disconnect();
 		return tasks;
 	}
 	
@@ -84,7 +121,7 @@ public class DatabaseConnect {
 		if (connection == null) {
 			try {
 				Class.forName(DATABASE_DRIVER);
-				connection = DriverManager.getConnection(DATABASE_URL,username, password);		
+				connection = DriverManager.getConnection(DATABASE_URL,dbUsername, dbPassword);		
 			} catch (ClassNotFoundException | SQLException  | NullPointerException e) {
 				e.printStackTrace();
 			}
@@ -95,15 +132,16 @@ public class DatabaseConnect {
 
 
 	/*
-	 * @return all the tasks that is
+	 * @return all the tasks that is allocated to you
 	 */
-	private ArrayList<Task> getTasks(){
+	public ArrayList<Task> getTasks(){
 		ArrayList<Task> tasks = new ArrayList<Task>();
+//		System.out.println(userId);
 
 		try{
 
 			Statement st = connect().createStatement();
-			ResultSet res = st.executeQuery("SELECT * FROM  task WHERE who='"+ USERNAME +"' status=" + "allocated");
+			ResultSet res = st.executeQuery("SELECT * FROM tasks WHERE Status='Allocated' AND MemberAllocated=" + userId);
 			while (res.next()) {
 				int id = res.getInt("TaskID");
 				String start = res.getString("StartDate");
@@ -161,9 +199,15 @@ public class DatabaseConnect {
 	 */
 	public ArrayList<Task> sync(ArrayList<Task> tasks){
 		
-		tasks = removeDeletedTasks(checkForNewTasks(tasks));
-		uploadAllTasks(tasks);
-		disconnect();
+		if(loggedIn){
+			tasks = removeDeletedTasks(checkForNewTasks(tasks));
+			uploadAllTasks(tasks);
+			disconnect();
+		}
+		else{
+			System.out.println("you are not logged in");
+		}
+
 		return tasks;	
 	}
 	
@@ -177,20 +221,23 @@ public class DatabaseConnect {
 		serverTasks = getTasks();
 		for(Task t: serverTasks){
 			boolean exist = true;
-			for(Task t1 : tasks){
-				if(t.getId() == (t1.getId())){
-					exist = false;
+			if(tasks !=null){
+				for(Task t1 : tasks){
+					if(t.getId() == (t1.getId())){
+						exist = false;
+					}
 				}
+
 			}
 			if(exist){
 				tasks.add(t);
 			}
 		}
-		System.out.println("After check for new tasks");
-		System.out.println(tasks);
+		//		System.out.println("After check for new tasks");
+		//		System.out.println(tasks);
 		return tasks;
 	}
-	
+
 	/*
 	 * @param tasks -> the local tasks 
 	 * @return
@@ -216,5 +263,13 @@ public class DatabaseConnect {
 		}
 
 		return tasks;
+	}
+
+	public boolean isLoggedIn() {
+		return loggedIn;
+	}
+
+	public void setLoggedIn(boolean loggedIn) {
+		this.loggedIn = loggedIn;
 	}
 }
