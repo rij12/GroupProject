@@ -11,7 +11,9 @@ public class Task {
 	private String title;
 	private String startDate;
 	
-	
+	public Task(){
+		
+	}
 	
 	
 	public Task(int theId, String theUser, String theTaskInfo, String date, String theStatus, String theTitle, String theStartDate){

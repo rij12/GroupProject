@@ -3,6 +3,8 @@ package uk.ac.aber.cs221.group16.authenticaion;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
+import java.util.Date;
+import java.util.Properties;
 
 import uk.ac.aber.cs221.group16.controller.Task;
 
@@ -22,6 +24,7 @@ public class DatabaseConnect {
 	private static String dbUsername = "csgpadm_16";
 	private boolean loggedIn = false;
 	private int userId;
+	private String userName;
 	
 	
 	// for the userlogin 
@@ -29,16 +32,7 @@ public class DatabaseConnect {
 	private String PASSWORD;
 	private Connection connection = null;
 	
-<<<<<<< Updated upstream
-	public int g = 4;
-	
-	
-	
-	
-	
-=======
 
->>>>>>> Stashed changes
 	/**
 	 * 
 	 * @param theUsername
@@ -47,6 +41,14 @@ public class DatabaseConnect {
 	 */
 	public DatabaseConnect(){
 
+	}
+	
+	public String getUserName(){
+		return userName;
+	}
+	
+	public void setUserName(String theUserName){
+		userName = theUserName;
 	}
 
 	public boolean logIn(String email){
@@ -65,6 +67,7 @@ public class DatabaseConnect {
 			else{
 				while(res.next()){
 					userId = res.getInt("id");
+					userName = res.getString("name");
 					System.out.println("Logged in");
 					System.out.println(userId);
 					loggedIn = true;
@@ -77,40 +80,6 @@ public class DatabaseConnect {
 
 		return loggedIn;
 	}
-
-
-	
-
-	/**
-	 * @return tasks that it get from the server.
-	 * only for test purposes
-	 */
-	public ArrayList<Task> getTasks2(){
-		ArrayList<Task> tasks = new ArrayList<Task>();
-
-		try{
-
-			Statement st = connect().createStatement();
-			ResultSet res = st.executeQuery("SELECT * FROM tasks");
-			while (res.next()) {
-				int id = res.getInt("TaskID");
-				String start = res.getString("StartDate");
-				String date = res.getString("DateOfCompletion");
-				String headline = res.getString("TitleOfTask");
-				String who = res.getString("MemberAllocated");
-				String status = res.getString("Status");
-				String details = res.getString("Comments");
-				Task task = new Task(id, who, details, date, status, headline, start );
-				tasks.add(task);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-
-		}
-		disconnect();
-		return tasks;
-	}
-	
 
 
 	/**
@@ -233,8 +202,6 @@ public class DatabaseConnect {
 				tasks.add(t);
 			}
 		}
-		//		System.out.println("After check for new tasks");
-		//		System.out.println(tasks);
 		return tasks;
 	}
 

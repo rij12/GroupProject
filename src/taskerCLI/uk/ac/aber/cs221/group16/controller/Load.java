@@ -11,29 +11,28 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-<<<<<<< Updated upstream
-public class Load {
-	
-	public int something = 4;
-		
-	public void save(ArrayList<Task> tasks){
-=======
 /**
  * @author Emil Ramsdal
  *
  */
 public class Load {		
->>>>>>> Stashed changes
 
 	private static String saveFolder;
 	private static String filename = "saveLocation.txt";
 	private Scanner scan;
+	private String userName;
 	
 	/**
 	 * 
 	 */
 	public Load(){
-		
+	}
+	
+	public String getUserName(){
+		return userName;
+	}
+	public void setUserName(String theUserName){
+		userName = theUserName;
 	}
 
 	/**
@@ -58,13 +57,14 @@ public class Load {
 	/**
 	 * @param tasks
 	 */
-	public void save(ArrayList<Task> tasks){
+	public void save(ArrayList<Task> tasks, String userName2){
 		try(FileWriter fw = new FileWriter(filename);
 				BufferedWriter bw = new BufferedWriter(fw);
 				PrintWriter outfile = new PrintWriter(bw);){
 
 			
 			outfile.println(tasks.size());
+			outfile.println(userName2);
 			
 			for (Task t: tasks){
 				outfile.println(t.getId());
@@ -90,6 +90,8 @@ public class Load {
 			int numTasks = infile.nextInt();
 			infile.nextLine();
 			
+			userName = infile.nextLine();
+			
 			for(int i = 0; i < numTasks; i++){
 				int id = infile.nextInt();
 				infile.nextLine();
@@ -114,12 +116,7 @@ public class Load {
 	}catch (NoSuchElementException e){
 		
 	}
-<<<<<<< Updated upstream
-	
-
-=======
 	return null;
 		
 	}
->>>>>>> Stashed changes
 }
