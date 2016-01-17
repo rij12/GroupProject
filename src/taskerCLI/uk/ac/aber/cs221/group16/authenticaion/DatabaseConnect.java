@@ -17,7 +17,7 @@ import uk.ac.aber.cs221.group16.controller.Task;
 public class DatabaseConnect {
 
 	private static final String DATABASE_DRIVER = "com.mysql.jdbc.Driver";
-		//private static final String DATABASE_URL = "jdbc:mysql://192.168.1.100:3306/tasker"; // local server
+	//private static final String DATABASE_URL = "jdbc:mysql://192.168.1.100:3306/tasker"; // local server
 	//private static final String DATABASE_URL = "jdbc:mysql://89.168.25.87:3306/tasker"; // 
 	private static final String DATABASE_URL = "jdbc:mysql://db.dcs.aber.ac.uk/csgp_16_15_16"; // 
 	private static String dbPassword = "fPeeWanK";
@@ -25,13 +25,13 @@ public class DatabaseConnect {
 	private boolean loggedIn = false;
 	private int userId;
 	private String userName;
-	
-	
+
+
 	// for the userlogin 
 	private String USERNAME;
 	private String PASSWORD;
 	private Connection connection = null;
-	
+
 
 	/**
 	 * 
@@ -42,18 +42,18 @@ public class DatabaseConnect {
 	public DatabaseConnect(){
 
 	}
-	
+
 	public String getUserName(){
 		return userName;
 	}
-	
+
 	public void setUserName(String theUserName){
 		userName = theUserName;
 	}
 
 	public boolean logIn(String email){
 
-//		System.out.println("login");
+		//		System.out.println("login");
 
 		try{
 			Connection conn = connect();
@@ -105,7 +105,7 @@ public class DatabaseConnect {
 	 */
 	public ArrayList<Task> getTasks(){
 		ArrayList<Task> tasks = new ArrayList<Task>();
-//		System.out.println(userId);
+		//		System.out.println(userId);
 
 		try{
 
@@ -126,24 +126,24 @@ public class DatabaseConnect {
 		}
 		return tasks;
 	}
-	
+
 	/*
 	 * @param tasks
 	 */
 	private void uploadAllTasks(ArrayList<Task> tasks){
 		try{
 			Connection conn = connect();
-		Statement stmt = conn.createStatement();
-		
-		for(Task t : tasks){
-			String id = Integer.toString(t.getId());
-			String update = ("UPDATE Task SET Comments='" + t.getTaskInfo() + "',"
-					+ " Status='" + t.getStatus() + "' WHERE TaskID='" + id + "'");
-				
-			@SuppressWarnings("unused")
-			int somehing = stmt.executeUpdate(update);
-		}
-		
+			Statement stmt = conn.createStatement();
+
+			for(Task t : tasks){
+				String id = Integer.toString(t.getId());
+				String update = ("UPDATE Task SET Comments='" + t.getTaskInfo() + "',"
+						+ " Status='" + t.getStatus() + "' WHERE TaskID='" + id + "'");
+
+				@SuppressWarnings("unused")
+				int somehing = stmt.executeUpdate(update);
+			}
+
 		}catch(Exception e){
 		}
 	}
@@ -155,11 +155,11 @@ public class DatabaseConnect {
 				connection.close();
 				connection = null;
 			} catch (SQLException e){
-//				e.printStackTrace();
+				//				e.printStackTrace();
 			}
 		}
 	}
-	
+
 	/**
 	 * This will first download new tasks (if there is any) then it will delete tasks 
 	 * that are deleted from the server, then it will upload the local changes 
@@ -167,7 +167,7 @@ public class DatabaseConnect {
 	 * @return the updated task list
 	 */
 	public ArrayList<Task> sync(ArrayList<Task> tasks){
-		
+
 		if(loggedIn){
 			tasks = removeDeletedTasks(checkForNewTasks(tasks));
 			uploadAllTasks(tasks);
@@ -179,8 +179,8 @@ public class DatabaseConnect {
 
 		return tasks;	
 	}
-	
-	
+
+
 	/*
 	 * @param tasks -> the local tasks that it will check against the server 
 	 * @return -> the updated tasklist after downloading the new ones. 
@@ -224,9 +224,9 @@ public class DatabaseConnect {
 					tasks.remove(t);
 				}
 			}
-			
+
 		}catch(ConcurrentModificationException e){
-//			e.printStackTrace();
+			//			e.printStackTrace();
 		}
 
 		return tasks;

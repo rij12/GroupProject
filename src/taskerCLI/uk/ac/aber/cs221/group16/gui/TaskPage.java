@@ -59,9 +59,11 @@ public class TaskPage extends JFrame {
 			userName = connection.getUserName();
 			if(tasks != null){
 				connection.sync(tasks);
+				saveAndLoad.save(tasks, userName);
 			}
 			else{
 				tasks = connection.getTasks();
+				saveAndLoad.save(tasks, userName);
 			}	
 		}
 		else{
