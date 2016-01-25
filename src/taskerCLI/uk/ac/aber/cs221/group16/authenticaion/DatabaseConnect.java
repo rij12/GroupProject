@@ -137,7 +137,7 @@ public class DatabaseConnect {
 
 			for(Task t : tasks){
 				String id = Integer.toString(t.getId());
-				String update = ("UPDATE Task SET Comments='" + t.getTaskInfo() + "',"
+				String update = ("UPDATE tasks SET Comments='" + t.getTaskInfo() + "',"
 						+ " Status='" + t.getStatus() + "' WHERE TaskID='" + id + "'");
 
 				@SuppressWarnings("unused")
@@ -171,13 +171,14 @@ public class DatabaseConnect {
 		if(loggedIn){
 			tasks = removeDeletedTasks(checkForNewTasks(tasks));
 			uploadAllTasks(tasks);
+			
 			disconnect();
 		}
 		else{
 			System.out.println("you are not logged in");
 		}
 
-		return tasks;	
+		return getTasks();	
 	}
 
 
@@ -221,9 +222,6 @@ public class DatabaseConnect {
 					}
 				}
 				if(!exist){
-					tasks.remove(t);
-				}
-				else if(t.getStatus() == "Complete"){
 					tasks.remove(t);
 				}
 			}
