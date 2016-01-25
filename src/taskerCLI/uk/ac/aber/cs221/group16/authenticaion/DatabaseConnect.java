@@ -223,6 +223,9 @@ public class DatabaseConnect {
 				if(!exist){
 					tasks.remove(t);
 				}
+				else if(t.getStatus() == "Complete"){
+					tasks.remove(t);
+				}
 			}
 
 		}catch(ConcurrentModificationException e){
