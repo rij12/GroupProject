@@ -1,0 +1,107 @@
+.members{		/* Members boxes for Members page */
+	height: 180px;
+	width: 150px;
+	float: left;
+	position: block;
+	margin-left: 112.5px;
+	margin-top: 50px;
+}
+
+.membersName{
+	height: 30px;
+	width: 100%;
+	font-family: century gothic;
+	text-align: center;
+}
+
+.membersProfile{
+	height: 150px;
+	width: 148px;
+	border: solid 1px black;
+}
+
+#membersInfoBodyMain{		/* Information part of the body */
+	height: 350px;
+	width: 100%;
+	border-top: 1px solid white;
+}
+
+#edit{		/* Edit button to Edit Members page */
+	height: 60px;
+	width: 70px;
+	float: right;
+	margin-top:1px;
+	background-image: url(images/edit.png);
+	border-bottom: 1px solid #b3b3b3;
+}
+
+#bodyLeft{		/* Left and Right body used to split members info layout */
+	width: 298px;
+	height: 348px;
+	float: left;
+	border-right: 1px solid #b3b3b3;
+	border-top: 1px solid white;
+}
+
+#bodyRight{
+	width: 599px;
+	height: 348px;
+	float: right;
+	border-left: 1px solid white;
+	border-top: 1px solid white;
+}
+
+#porfolio{
+	height: 247px;
+	width: 199px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 40px;
+	border: 1px solid #666666;
+	border-radius: 2px;
+	background-image: url(images/portfolio.png);
+}
+
+#nameArea{
+	margin-left: 50px;
+	height: 100px;
+	width: 100px;
+	margin-top: 50px;
+	font-family: century gothic;
+	float: left;
+	text-align: right;
+}
+
+#name{
+	height: 100px;
+	width: 400px;
+	margin-top: 50px;
+	font-family: century gothic;
+	float: left;
+	text-indent: 25px;
+}
+
+#emailArea{
+	margin-left: 50px;
+	height: 100px;
+	width: 100px;
+	font-family: century gothic;
+	float: left;
+	text-align: right;
+}
+
+#email{
+	height: 75px;
+	width: 400px;
+	font-family: century gothic;
+	float: left;
+	text-indent: 25px;
+}
+
+#submit{
+	height: 100px;
+	width: 100px;
+	font-family: century gothic;
+	float: left;
+	text-align: right;
+}
