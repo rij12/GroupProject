@@ -45,24 +45,7 @@ import java.awt.event.ActionListener;
  * Edited by - Emil 
  * 
  */
-public class TaskEditor extends JFrame {
-
-	private JPanel contentPane;
-	private JTextField txtCurrentTask;
-	private final ButtonGroup buttonGroup = new ButtonGroup();
-	// Used for diagrams 
-	boolean taskisComplete;  
-//	 TaskPage taskPage = new TaskPage ();
-	
-	/**
-	 * Launch the application.
-	 */
-	
-
-	/**
-	 * Create the frame.
-	 */
-	public TaskEditor(Task task, DatabaseConnect connection) {
+public TaskEditor(Task task, DatabaseConnect connection) {
 //		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 935, 478);
 		contentPane = new JPanel();
@@ -78,26 +61,31 @@ public class TaskEditor extends JFrame {
 		// Current user Display
 		txtCurrentTask = new JTextField();
 		txtCurrentTask.setEditable(false);
-		txtCurrentTask.setText("Current Task");
+		txtCurrentTask.setText(task.getTitle());
 		editorPanel.add(txtCurrentTask, "cell 0 1,alignx center,aligny center");
 		txtCurrentTask.setColumns(10);
-		// Set a task to complete
-
+		
+		// Editor pane
 		JEditorPane editorPane = new JEditorPane();
 		editorPanel.add(editorPane, "cell 0 4 2 2,grow");
 		editorPane.setText(task.getTaskInfo());
 		
-		//task.getTaskInfo() = 
-		
-		
+			
 		//submit button
 		JButton SubmitButton = new JButton("Submit\r\n");
 		SubmitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-//				TaskPage  taskPage = new TaskPage();
+		//TaskPage  taskPage = new TaskPage();
 				contentPane.setVisible(false);
 				dispose();
-			}
+		//Sync local copt with arraylist. 		
+		TaskPage test = new TaskPage(connection);
+		task.setTaskInfo(editorPane.getText());
+		test.tasks.remove(test.tasks.indexOf(task.getId()));
+		test.tasks.add(task);
+		connection.sync(test.tasks);
+		
+		 }
 		});
 			
 	editorPanel.add(SubmitButton, "cell 0 7,alignx center,aligny center");
@@ -106,12 +94,9 @@ public class TaskEditor extends JFrame {
 	setToComplete.addActionListener(new ActionListener(){
 
 		public void actionPerformed(ActionEvent e) {
-			
 			setToComplete.setBackground(Color.GREEN);
-			taskisComplete = true; 
-			
-			
-			
+			taskisComplete = true;
+			task.setStatus("Complete");
 		}		
 	});
 	editorPanel.add(setToComplete, "cell 1 7,alignx center,aligny center");
