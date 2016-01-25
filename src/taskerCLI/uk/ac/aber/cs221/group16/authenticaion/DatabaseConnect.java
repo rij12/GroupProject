@@ -6,7 +6,7 @@ import java.util.ConcurrentModificationException;
 import java.util.Date;
 import java.util.Properties;
 
-import ac.aber.cs221.group16.controller.Task;
+import uk.ac.aber.cs221.group16.controller.Task;
 
 
 
@@ -221,6 +221,9 @@ public class DatabaseConnect {
 					}
 				}
 				if(!exist){
+					tasks.remove(t);
+				}
+				else if(t.getStatus() == "Complete"){
 					tasks.remove(t);
 				}
 			}
