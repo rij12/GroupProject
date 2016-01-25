@@ -1,4 +1,4 @@
-package ac.aber.cs221.group16.gui;
+package uk.ac.aber.cs221.group16.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Button;
@@ -27,9 +27,9 @@ import java.awt.event.ActionEvent;
 import javax.swing.Action;
 import javax.swing.JButton;
 
-import ac.aber.cs221.group16.authenticaion.DatabaseConnect;
-import ac.aber.cs221.group16.controller.Load;
-import ac.aber.cs221.group16.controller.Task;
+import uk.ac.aber.cs221.group16.authenticaion.DatabaseConnect;
+import uk.ac.aber.cs221.group16.controller.Load;
+import uk.ac.aber.cs221.group16.controller.Task;
 
 import java.awt.event.ActionListener;
 /**

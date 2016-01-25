@@ -1,4 +1,4 @@
-package ac.aber.cs221.group16.gui;
+package uk.ac.aber.cs221.group16.gui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -24,9 +24,9 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
-import ac.aber.cs221.group16.authenticaion.DatabaseConnect;
-import ac.aber.cs221.group16.controller.Load;
-import ac.aber.cs221.group16.controller.Task;
+import uk.ac.aber.cs221.group16.authenticaion.DatabaseConnect;
+import uk.ac.aber.cs221.group16.controller.Load;
+import uk.ac.aber.cs221.group16.controller.Task;
 import net.miginfocom.swing.MigLayout;
 
 /**
