@@ -1,10 +1,10 @@
-package ac.aber.cs221.group16.controller;
+package uk.ac.aber.cs221.group16.controller;
 
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
-import ac.aber.cs221.group16.gui.TaskerLogin;
+import uk.ac.aber.cs221.group16.gui.TaskerLogin;
 /**
  * <p>
  * Test GUI Main Class

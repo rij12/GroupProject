@@ -1,4 +1,4 @@
-package ac.aber.cs221.group16.gui;
+package uk.ac.aber.cs221.group16.gui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -24,9 +24,9 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
-import ac.aber.cs221.group16.authenticaion.DatabaseConnect;
-import ac.aber.cs221.group16.controller.Load;
-import ac.aber.cs221.group16.controller.Task;
+import uk.ac.aber.cs221.group16.authenticaion.DatabaseConnect;
+import uk.ac.aber.cs221.group16.controller.Load;
+import uk.ac.aber.cs221.group16.controller.Task;
 import net.miginfocom.swing.MigLayout;
 
 /**
@@ -46,7 +46,11 @@ public class TaskPage extends JFrame {
 	Load saveAndLoad = new Load();
 	String userName;
 	// Delete this is only for testing 
-	
+	@Override
+	public void repaint() {
+		// TODO Auto-generated method stub
+		super.repaint();
+	}
 
 	/**
 	 * Create the frame.
@@ -85,7 +89,7 @@ public class TaskPage extends JFrame {
 		
 		JLabel lblCurrentUserInformation = new JLabel(userName);
 		panel.add(lblCurrentUserInformation, "cell 0 0,alignx center, align left, aligny top");
-		
+		lblCurrentUserInformation.repaint();
 		txtSearchField = new JTextField();
 		txtSearchField.setText("Search Field");
 		panel.add(txtSearchField, "cell 0 2,alignx left, aligny top");
@@ -99,7 +103,7 @@ public class TaskPage extends JFrame {
 		 JScrollPane listPane = new JScrollPane(list);
 		
 		panel.add(list, "cell 0 1, aligny top, growy");
-	
+		listPane.repaint();
 	
 		if(tasks != null){
 			for(Task t: tasks){
@@ -123,6 +127,8 @@ public class TaskPage extends JFrame {
 		JLabel completionDate = new JLabel("Completion date: ");
 		JLabel startDate = new JLabel("Start date: ");
 		JLabel description =new JLabel("Task description: ");
+		description.revalidate();
+		
 		//This should display the current task. 
 		JEditorPane editorPane = new JEditorPane();
 		 panel2.add(nameLable, "cell 0 0, aligny top, alignx left, ");
@@ -130,7 +136,7 @@ public class TaskPage extends JFrame {
 		 panel2.add(startDate, "cell 0 2, aligny top, alignx left");
 		 panel2.add(description, "cell 0 3, aligny top");
 		 
-		 
+		editorPane.revalidate(); 
 		 
 		 
 			list.addListSelectionListener(new ListSelectionListener(){
