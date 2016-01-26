@@ -77,6 +77,7 @@ public class Load {
 			for (Task t: tasks){
 				outfile.println(t.getId());
 				outfile.println(t.getUser());
+				outfile.println(countLines(t.getTaskInfo()));
 				outfile.println(t.getTaskInfo());
 				outfile.println(t.getDeadLine());
 				outfile.println(t.getStatus());
@@ -88,8 +89,12 @@ public class Load {
 		}
 
 	}
-
+	   private static int countLines(String str){
+		   String[] lines = str.split("\r\n|\r|\n");
+		   return  lines.length;
+		}
 	public ArrayList<Task> load(){
+		
 		ArrayList<Task> tasks = new ArrayList();
 
 		try(FileReader fr = new FileReader(filename);
@@ -101,10 +106,15 @@ public class Load {
 			userName = infile.nextLine();
 			
 			for(int i = 0; i < numTasks; i++){
+				String taskInfo = "";
 				int id = infile.nextInt();
 				infile.nextLine();
 				String user = infile.nextLine();
-				String taskInfo = infile.nextLine();
+				int numberOfLines = infile.nextInt();
+				infile.nextLine();
+				for(int j = 0; j < numberOfLines; j++){
+					taskInfo = taskInfo + infile.nextLine();
+				}
 				String deadLine = infile.nextLine();
 				String status = infile.nextLine();
 				String title = infile.nextLine();

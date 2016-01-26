@@ -1,5 +1,9 @@
 package uk.ac.aber.cs221.group16.authenticaion;
 
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
@@ -51,15 +55,40 @@ public class DatabaseConnect {
 		userName = theUserName;
 	}
 
-	public boolean logIn(String email){
+	private String hashing(String password){
+//S		tring password = "123456";
+    	
+        MessageDigest md = null;
+		try {
+			md = MessageDigest.getInstance("SHA-256");
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        md.update(password.getBytes());
+        
+        byte byteData[] = md.digest();
+ 
+        //convert the byte to hex format method 1
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < byteData.length; i++) {
+         sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+        }		
+		
+		return sb.toString();
+		
+	}
 
-		//		System.out.println("login");
+	
+	public boolean logIn(String email, char[] cs){
 
+		String text = String.valueOf(cs);
+		
 		try{
 			Connection conn = connect();
 			Statement stmt = conn.createStatement();
 
-			ResultSet res = stmt.executeQuery("SELECT * FROM members WHERE email='"+ email +"'");
+			ResultSet res = stmt.executeQuery("SELECT * FROM members WHERE email='"+ email +"' AND password='" + hashing(text) +"'");
 			if (!res.isBeforeFirst()){
 				System.out.println("Wrong email ");
 				loggedIn = false;
@@ -197,7 +226,6 @@ public class DatabaseConnect {
 						exist = false;
 					}
 				}
-
 			}
 			if(exist){
 				tasks.add(t);

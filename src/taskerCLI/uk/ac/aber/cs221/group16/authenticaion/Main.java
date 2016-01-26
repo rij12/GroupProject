@@ -1,9 +1,5 @@
 package uk.ac.aber.cs221.group16.authenticaion;
-<<<<<<< HEAD
-
-=======
 //
->>>>>>> f1483b560e2670a1c902168920dc5ce2748def50
 import java.sql.Connection;
 import java.util.*;
 import java.util.concurrent.ScheduledExecutorService;
@@ -12,10 +8,7 @@ import static java.util.concurrent.TimeUnit.*;
 
 import uk.ac.aber.cs221.group16.controller.Load;
 import uk.ac.aber.cs221.group16.controller.Task;
-<<<<<<< HEAD
-=======
 import uk.ac.aber.cs221.group16.authenticaion.*;
->>>>>>> f1483b560e2670a1c902168920dc5ce2748def50
 
 public class Main {
 
@@ -31,40 +24,57 @@ public class Main {
 	
 	
 	   public static void main(String[] args) {
+		   
+		   
+
+//		   System.out.println(countLines("adsasdasd"));
+
+
+//		   new ReminderBeep(10);
+		   
+		   
+		   
 		   // creating timer task, timer
 
 		   
-//		   Timer timer = new Timer ();
-//		   TimerTask hourlyTask = new TimerTask () {
-//		       @Override
-//		       public void run () {
-//		           System.out.println("Test!!");
-//		       }
-//		   };
+		   Timer timer = new Timer ();
+		   TimerTask hourlyTask = new TimerTask () {
+		       @Override
+		       public void run () {
+		           System.out.println("Test!!");
+		       }
+		   };
 //
 //		   // schedule the task to run starting now and then every hour...
-//		   timer.schedule (hourlyTask, 0l, 1000);
+		   timer.schedule (hourlyTask, 0l, 1000);
 		   
 		   
-		   tasks = saveAndLoad.load();
+//		   tasks = saveAndLoad.load();
+//		   
+//		   System.out.println(tasks);
 		   
-		   System.out.println(tasks);
-		   
-		   con.logIn("emr18@aber.ac.uk");
-		   tasks = con.sync(tasks);
-		   System.out.println(tasks);
-		   
+//		   con.logIn("emr18@aber.ac.uk");
+//		   tasks = con.sync(tasks);
+//		   System.out.println(tasks);
+//		   
 //		   saveAndLoad.save(tasks, tasks.get(0).getUser());
-		   
-		   tasks.get(0).setStatus("Complete");
-		   tasks = con.sync(tasks);
-		   
-		  
-		   saveAndLoad.save(tasks, tasks.get(0).getUser());
-		   System.out.println(tasks);
+//		   
+//		   tasks.get(0).setStatus("Complete");
+//		   tasks = con.sync(tasks);
+//		   
+//		  
+//		   saveAndLoad.save(tasks, tasks.get(0).getUser());
+//		   System.out.println(tasks);
 //		   saveAndLoad.save(tasks, tasks.get(0).getUser());
 		   
 		   
 		   
 }
+	   
+	   private static int countLines(String str){
+		   String[] lines = str.split("\r\n|\r|\n");
+		   return  lines.length;
+		}
+	   
+	   
 }

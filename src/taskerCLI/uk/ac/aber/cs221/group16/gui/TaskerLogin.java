@@ -8,6 +8,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -16,16 +19,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-
-
-
-
-
-
-
-
-
-
 import uk.ac.aber.cs221.group16.authenticaion.DatabaseConnect;
 import uk.ac.aber.cs221.group16.controller.Load;
 import uk.ac.aber.cs221.group16.controller.MainFrame;
@@ -59,6 +52,8 @@ public class TaskerLogin extends JFrame {
 		
 		connection = new DatabaseConnect();
 	
+
+		
 		
 		
 		// Creating the main frame
@@ -96,7 +91,7 @@ public class TaskerLogin extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				connection.logIn(userName.getText());
+				connection.logIn(userName.getText(), passwordField.getPassword());
 				if(connection.isLoggedIn()){
 					
 					TaskPage mainPage = new TaskPage(connection);
