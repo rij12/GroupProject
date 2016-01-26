@@ -20,6 +20,15 @@
 					<b> Password: </b>
 					<input type="password" name="password" value="" maxlength="50" required>
 				</div>
+				<div class = "loginSection">
+					<div <?php 
+					if(isset($_GET['denied']) && $_GET['denied'] == "true"){
+						
+					}else{
+						echo 'hidden';
+					}
+					?> name="text">Access Denied</div>
+				</div>
 				<div class = "button" style ="margin-left:5em">
 					<input type = "submit" value = "Login">
 				</div>

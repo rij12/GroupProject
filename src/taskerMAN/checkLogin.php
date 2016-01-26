@@ -30,7 +30,8 @@
 			header("Location: $url");
 			
 		}else{
-			echo 'Login Failed: no matches found';
+			$url = "index.php?denied=true";
+			header("Location: $url");
 		}
 		mysqli_close($con);
 	
