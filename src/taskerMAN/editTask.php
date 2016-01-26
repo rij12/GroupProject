@@ -1,6 +1,4 @@
-   
-
-
+<!DOCTYPE html>
 <html>
 <head> 
 <title> Tasks </title>
@@ -43,25 +41,61 @@
 						</div>
 						
 						<div class = "viewTaskOptions">
+						
+						<div class = "viewTaskOptions">
 						<div class = "editDescription">Allocated Member:</div>
-						<input type="text" name="member" value="';
-						$sql = "SELECT * FROM members WHERE id = '$member'";
-							  $result2 = mysqli_query($con,$sql);
-							  $row2 = mysqli_fetch_array($result2);
-							  echo $row2['name'];
-						echo '">
+						<select name="member">';
+
+
+						$sql = "SELECT * FROM members where id='$member'";
+						$result = $con->query($sql);
+
+						if ($result->num_rows > 0) {
+
+							while ($row = $result->fetch_assoc()) {
+							
+								echo '
+
+												<option value="' .$row['id']. '"> '.$row['name']. '</option>';
+												
+											
+												   }
+						} else {
+							echo "0 results";
+						} 
+						$sql = "SELECT * FROM members";
+						$result = $con->query($sql);
+
+						if ($result->num_rows > 0) {
+
+							while ($row = $result->fetch_assoc()) {
+							if($row['id'] != $member){
+								echo '
+
+												<option value="' .$row['id']. '"> '.$row['name']. '</option>';
+							}
+												
+											
+												   }
+						} else {
+							echo "0 results";
+						} 
+						
+			echo'</select></div>
+						
+					
 					</div>
 					<div class = "viewTaskOptions">
 						<div class = "editDescription">Start Date:</div>
-						<input type="text" name="sDate" value="' .$startdate. '">
+						<input type="text" name="sDate" value="' .$startdate. '" required>
 					</div>
 					<div class = "viewTaskOptions">
 						<div class = "editDescription">Date of Completion:</div>
-						<input type="text" name="cDate" value="' .$completedate. '">
+						<input type="text" name="cDate" value="' .$completedate. '" required>
 					</div>
 					<div class = "viewTaskOptions">
 						<div class = "editDescription">Task Elements:</div>
-						<input type="text" name="comments" value="' .$comments. '">
+						<input type="text" name="comments" value="' .$comments. '" required>
 					</div>';
                 
                 $data = $status;

@@ -27,14 +27,27 @@
 					</div>
 					<div id ="bodyRight">
 					<form enctype="multipart/form-data" action="updateMemberInfo.php" method = "post">
-						<div id = "nameArea"> <b>Full Name:</b> </div>
-						<div id = "name"> <input type="text" name="Name" value="<?php echo $row['name']; ?>"></div>
-						<div id = "emailArea"> <b>E-Mail:</b></div>
-						<div id = "email"> <input type="text" name="Email" value="<?php echo $row['email']; ?>"></div>
-						<div><b>Password:</b></div>
+						<div class = "nameArea"> <b>Full Name:</b> </div>
+						<div class = "name"> <input type="text" name="Name" value="<?php echo $row['name']; ?>" required></div>
+						<div class = "nameArea"> <b>E-Mail:</b></div>
+						<div class = "name"> <input type="text" name="Email" value="<?php echo $row['email']; ?>" required></div>
+						<div class = "nameArea"><b>Password:</b></div>
 						<div><input type="password" name="password"></div>
 						<div><b>Profile Picture:</b></div>
 						<div><input type="file" name="picture" accept="image/*"></div>
+						<?php
+							if($row['name'] != "admin"){
+							echo '<div><input type="checkbox" name="admin" value="admin"';
+							
+							$sql = "SELECT * FROM members WHERE id='$id'";
+							$result = mysqli_query($con,$sql);
+							$row = mysqli_fetch_array($result);
+							if($row['admin'] == 1){
+								echo ' checked';
+							}
+							}
+						?>
+						>Set Admin</div>
 						<input name="id" type="hidden" value="<?php echo $row['id']; ?>"></input>
 						<div id ="submit"> <input type="submit" value="Submit"> </div>
 					</form>

@@ -1,14 +1,23 @@
 <?php
+	if(isset($_POST['admin'])){
+		$admin = "1";
+	}else{
+		$admin = "0";
+	}
 
 	$memberName = $_POST['Name'];
 	$memberEmail = $_POST['Email'];
 	$memberID = $_POST['id'];
 	$password = $_POST['password'];
+	
+	if($memberName == "admin"){
+		$admin = "1";
+	}
 
 	$hashPass = hash('sha256',$password);
 	require "connect.php";
 
-	$sql = "UPDATE members SET name='$memberName', email='$memberEmail' , password='$hashPass' WHERE id='$memberID'";
+	$sql = "UPDATE members SET name='$memberName', email='$memberEmail' , password='$hashPass' , admin='$admin' WHERE id='$memberID'";
 	mysqli_query($con,$sql);
 	mysqli_close($con);
 	

@@ -38,12 +38,12 @@ a:visited{
 	margin-left: auto;
 	margin-right: auto; 
 	height: 50px;
-	width: 900px;
+	width: 950px;
 }
 
 .navOptions{
 	height: 35px;
-	width: 300px;
+	width: 25%;
 	margin-top: 10px;
 	float: left;
 
@@ -64,9 +64,9 @@ a:visited{
 	height: auto;
 	width: 900px;
 	margin-top:0; 
-	margin-right:auto; 
 	margin-bottom:0; 
-	margin-left:auto;
+	margin-left:auto;	
+	margin-right:auto; 
 }
 
 #body{

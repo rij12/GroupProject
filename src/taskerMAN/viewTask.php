@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
     <head> 
         <title> Tasks </title>
@@ -31,6 +32,7 @@ if ($result->num_rows > 0) {
 		$completedate = $row['DateOfCompletion'];
 		$comments = $row['Comments'];
 		$member = $row['MemberAllocated'];
+		$status = $row['Status'];
 
         echo '	<div id ="body">
 				<div id = "editTaskBodyMain">
@@ -54,6 +56,10 @@ if ($result->num_rows > 0) {
 					<div class = "viewTaskOptions">
 						<div class = "editDescription">Date of Completion:</div>
 						<div class = "editDescriptionInfo"> ' . $completedate . '</div>
+					</div>
+					<div class = "viewTaskOptions">
+						<div class = "editDescription">Task Status:</div>
+						<div class = "editDescriptionInfo"> ' . $status . '</div>
 					</div>
 					<div class = "viewTaskOptions">
 						<div class = "editDescription">Task Elements:</div>

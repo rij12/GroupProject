@@ -13,6 +13,8 @@ if( !isset($_SESSION["login"]) ){
 		<a href = "members.php"><div class = "navOptions">Team members</div></a>
 		<a href = "createTask.php"><div class = "navOptions">Create task</div></a>
 		<a href = "viewTasks.php"><div class = "navOptions">View tasks</div></a>
+		<a href = "logout.php" onclick="return confirm('Are you sure you want to logout?')"><div class = "navOptions">Logout</div></a>
+
 		
 	</div>
 </div>
