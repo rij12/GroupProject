@@ -37,13 +37,14 @@ public class TaskEditor extends JFrame {
 	JButton SubmitButton; // button you click to submit the changes
 	JButton setToComplete; // button you click to set the task to complete
 
-	TaskPage taskPage; // Just so we can accsess the tasks.
+ // Just so we can accsess the tasks.
 	Load load; // makes the save and load methods available 
 	JPanel editorPanel; // This is where the task description is edited 
 	String user; // just so the name of the user can be printed
-
+	
 
 	public TaskEditor(Task task, DatabaseConnect connection) {
+		TaskPage taskPage = new TaskPage(connection);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		user = task.getUser(); 
 
@@ -83,7 +84,7 @@ public class TaskEditor extends JFrame {
 
 				// ***************************************** Find the task currently being edited and change the arraylist  **************
 				//Sync local copy with arraylist. 		
-				taskPage = new TaskPage(connection);
+
 				task.setTaskInfo(editorPane.getText());
 				int indexOfCurrentTask = 0;
 
@@ -111,7 +112,18 @@ public class TaskEditor extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				setToComplete.setBackground(Color.GREEN);
 				task.setStatus("Complete");
-
+				int indexOfCurrentTask = 0;
+				System.out.println(taskPage.tasks.size());
+				for(int i = 0; i < taskPage.tasks.size(); i++){
+					if(taskPage.tasks.get(i).getId() == task.getId()){
+						indexOfCurrentTask = i;
+					}
+				}
+				if(connection.isLoggedIn()){ 			// This will only sync if the user is logged in 
+					connection.sync(taskPage.tasks);
+				}
+				taskPage.tasks.remove(indexOfCurrentTask);
+				taskPage.model.clear();
 			}		
 		});
 		editorPanel.add(setToComplete, "cell 1 7,alignx center,aligny center");

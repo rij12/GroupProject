@@ -110,10 +110,14 @@ public class TaskPage extends JFrame {
 				String text = i + " \t" + t.getTitle() + " \t"
 						+ t.getDeadLine();
 				//
-				model.addElement(text);
+				if(t.getStatus().equals("Allocated")){
+					model.addElement(text);
+				}
+				
 				i++;
 			}
 		}
+		
 
 		/* Swing components for the displaying the details of the tasks */
 		taskDetailsPanel1 = new JPanel();
@@ -179,7 +183,9 @@ public class TaskPage extends JFrame {
 			@Override
 			public void run() {
 				description.setText("Description: " + task.getTaskInfo());
-				JList();
+				
+				
+				
 			}
 		};
 
@@ -187,10 +193,5 @@ public class TaskPage extends JFrame {
 
 	}
 
-	public void JList() {
-
-
-
-	}
 
 }
