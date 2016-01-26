@@ -14,15 +14,15 @@
 					<div id = "editTaskBodyMain">
 						<div class = "viewTaskOptions">
 							<div class = "editDescription">Name:</div>
-							<input type="text" name="name" required>
+							<input type="text" name="name" maxlength="50" required>
 						</div>
 						<div class = "viewTaskOptions">
 							<div class = "editDescription">Email Address:</div>
-							<input type="email" name="email" placeholder="youremail@email.co.uk" required>
+							<input type="email" name="email" maxlength="50" placeholder="youremail@email.co.uk" required>
 						</div>	
 						<div class = "viewTaskOptions">
 							<div class = "editDescription">Password:</div>
-							<input type="password" name="password" placeholder="password" required>
+							<input type="password" name="password" maxlength="50" placeholder="password" required>
 						</div>
 						<div class = "viewTaskOptions">
 							<div class = "editDescription">Profile Pic:</div>

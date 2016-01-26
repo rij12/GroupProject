@@ -14,11 +14,11 @@
 					<form name ="login" method="post" action = "checkLogin.php">
 					<div class = "loginSection">
 						<b> Username: </b>
-						<input type="text" name="username" value="" required><br>
+						<input type="text" name="username" value="" maxlength="50" required><br>
 				</div>
 				<div class = "loginSection">
 					<b> Password: </b>
-					<input type="password" name="password" value="" required>
+					<input type="password" name="password" value="" maxlength="50" required>
 				</div>
 				<div class = "button" style ="margin-left:5em">
 					<input type = "submit" value = "Login">

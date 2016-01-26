@@ -32,12 +32,12 @@
 			$comments = $row['Comments'];
 
 
-        	echo '	 <form method="POST" action="updateTasks.php">
+        	echo '	 <form method="POST" name="process" action="updateTasks.php" onsubmit="return validateForm()">
         			<div id = "editTaskBodyMain">
 					<div class = "viewTaskOptions">
 						<div class = "editDescription">Task Title:</div>
 						<input type="hidden" name = "id" value = "' . $row['TaskID']. '">
-						<input type="text" name="title" value="' . $row['TitleOfTask']. '">
+						<input type="text" maxlength="50" name="title" value="' . $row['TitleOfTask']. '">
 						</div>
 						
 						<div class = "viewTaskOptions">
@@ -95,8 +95,18 @@
 					</div>
 					<div class = "viewTaskOptions">
 						<div class = "editDescription">Task Elements:</div>
-						<input type="text" name="comments" value="' .$comments. '" required>
-					</div>';
+						<input type="text" name="comments" maxlength="50" value="' .$comments. '" required>
+					</div>';?>
+						<script>
+					
+					function validateForm() {
+	var start = document.forms["process"]["sDate"].value;
+	var end = document.forms["process"]["cDate"].value;
+	if (start > end) {
+		alert("The start date must begin before the end date");
+		return false;
+	}
+}</script> <?php
                 
                 $data = $status;
 

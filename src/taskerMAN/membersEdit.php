@@ -28,11 +28,11 @@
 					<div id ="bodyRight">
 					<form enctype="multipart/form-data" action="updateMemberInfo.php" method = "post">
 						<div class = "nameArea"> <b>Full Name:</b> </div>
-						<div class = "name"> <input type="text" name="Name" value="<?php echo $row['name']; ?>" required></div>
+						<div class = "name"> <input type="text" name="Name" maxlength="50" value="<?php echo $row['name']; ?>" required></div>
 						<div class = "nameArea"> <b>E-Mail:</b></div>
-						<div class = "name"> <input type="text" name="Email" value="<?php echo $row['email']; ?>" required></div>
+						<div class = "name"> <input type="text" name="Email" maxlength="50" value="<?php echo $row['email']; ?>" required></div>
 						<div class = "nameArea"><b>Password:</b></div>
-						<div><input type="password" name="password"></div>
+						<div><input type="password" name="password" maxlength="50"></div>
 						<div><b>Profile Picture:</b></div>
 						<div><input type="file" name="picture" accept="image/*"></div>
 						<?php
