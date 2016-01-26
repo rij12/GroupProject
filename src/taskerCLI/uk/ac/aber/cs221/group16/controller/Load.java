@@ -17,7 +17,7 @@ import java.io.PrintWriter;
  */
 public class Load {		
 
-	private static String saveFolder;
+	private static String saveFolder;	
 	private static String filename = "saveLocation.txt";
 	private Scanner scan;
 	private String userName;
@@ -36,7 +36,7 @@ public class Load {
 	}
 
 	/**
-	 * 
+	 * This is something for later 
 	 */
 	public void readSaveLocation(){
 		/*psudo code!!
@@ -56,16 +56,24 @@ public class Load {
 	
 	/**
 	 * @param tasks
+	 * This would take an arrayList and save it to filename. 
 	 */
 	public void save(ArrayList<Task> tasks, String userName2){
 		try(FileWriter fw = new FileWriter(filename);
 				BufferedWriter bw = new BufferedWriter(fw);
 				PrintWriter outfile = new PrintWriter(bw);){
+			
+			for(Task t : tasks){
+				if(t.getStatus().equals("Complete")){
+					tasks.remove(t);
+				}
+			}
 
 			
-			outfile.println(tasks.size());
-			outfile.println(userName2);
+			outfile.println(tasks.size()); // the number of tasks
+			outfile.println(userName2); // your username 
 			
+			// THe different task information 
 			for (Task t: tasks){
 				outfile.println(t.getId());
 				outfile.println(t.getUser());
