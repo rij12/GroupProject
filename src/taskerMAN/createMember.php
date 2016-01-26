@@ -19,6 +19,17 @@
 						<div class = "viewTaskOptions">
 							<div class = "editDescription">Email Address:</div>
 							<input type="email" name="email" maxlength="50" placeholder="youremail@email.co.uk" required>
+							<div <?php 
+					if(!(isset($_GET['failed']) && $_GET['failed'] == "1")){
+						echo 'hidden';
+					}
+					?> name="text">
+					<?php 
+					if($_GET['failed'] == "1"){
+						echo 'The email address you specified already exists';
+					}
+					?>
+					</div>
 						</div>	
 						<div class = "viewTaskOptions">
 							<div class = "editDescription">Password:</div>

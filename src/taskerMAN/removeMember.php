@@ -1,6 +1,15 @@
 <?php 
-	$id = isset($_POST['id']) ? $_POST['id'] : 1;
 	require 'connect.php';
+	$sql = "SELECT MIN(id) FROM members";
+	$result = mysqli_query($con,$sql);
+	$row = mysql_fetch_array($result);
+	
+	if(isset($_POST['id'])){
+		$id = $_POST['id'];
+	}else{
+		$id = $row['MIN(id)'];
+	}
+	
 	
 	$sql = "SELECT * FROM members WHERE name <> 'admin'";
 	$result = mysqli_query($con,$sql);
@@ -23,10 +32,11 @@
 			<form id="selectMember" method="post" action="removeMember.php">
 				<div id = "bodyHead"> Remove Member: 							
 							<select name="id" onchange="document.getElementById('selectMember').submit();" required>
+								<option value="" disabled selected>Select your option</option>
 							    <?php
 									while($row = mysqli_fetch_array($result)) {					
 										echo '<option value="'. $row['id'] . '"';
-										if($_POST['id'] == $row['id']){
+										if($id == $row['id']){
 											echo ' selected ';
 										}
 										echo'>' . $row['name'] . '</option>';

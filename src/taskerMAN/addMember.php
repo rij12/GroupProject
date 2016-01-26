@@ -6,12 +6,10 @@
 	require "connect.php";
 	$sql = "SELECT * FROM members WHERE email='$memberEmail'";
 	$result = mysqli_query($con, $sql);
-	
-	if(mysqli_num_rows($result) != 0){
-		$url = "createMember.php?failed=1";
-		header("Location: $url");
-	}
+	$rowcount=mysqli_num_rows($result);
 	mysqli_close($con);
+		
+	if($rowcount == 0){
 	
 	$memberName = filter_var($memberName, FILTER_SANITIZE_STRING);
 	$memberEmail = filter_var($memberEmail, FILTER_SANITIZE_EMAIL);
@@ -52,5 +50,9 @@
 	//redirects to members page
 	$url = "members.php";
 	header( "Location: $url" );
+	}else{
+		$url = "createMember.php?failed=1";
+		header("Location: $url");
+	}
 
 ?>

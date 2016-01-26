@@ -3,10 +3,10 @@
  
                                     
    
-	for($i = 0; $i < 1000; $i++){							
+	for($i = 0; $i < 50; $i++){							
  require "connect.php";
     $sql="INSERT INTO tasks (StartDate,DateOfCompletion,TitleOfTask,MemberAllocated,Status,Comments) 
-    VALUES ('26/08/2015', '26/08/2016', 'Test' , '2', 'Allocated', 
+    VALUES ('26/08/2015', '26/08/2016', 'Test' , '3', 'Allocated', 
     'This is a comment' )";
                                         
     if ($con->query($sql)) {

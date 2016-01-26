@@ -88,11 +88,14 @@
 					</div>
 					<div class = "viewTaskOptions">
 						<div class = "editDescription">Start Date:</div>
-						<input type="text" name="sDate" value="' .$startdate. '" required>
+						<input type="date" name="sDate" value="';
+						$startdate = date_create_from_format('d/m/y', $startdate);
+						echo $startdate;
+						echo '" required>
 					</div>
 					<div class = "viewTaskOptions">
 						<div class = "editDescription">Date of Completion:</div>
-						<input type="text" name="cDate" value="' .$completedate. '" required>
+						<input type="date" name="cDate" value="' .$completedate. '" required>
 					</div>
 					<div class = "viewTaskOptions">
 						<div class = "editDescription">Task Elements:</div>
