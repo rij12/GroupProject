@@ -93,7 +93,7 @@ public class Load {
 		   String[] lines = str.split("\r\n|\r|\n");
 		   return  lines.length;
 		}
-	public ArrayList<Task> load(){
+	public ArrayList<Task> load(String username){
 		
 		ArrayList<Task> tasks = new ArrayList();
 
@@ -104,6 +104,9 @@ public class Load {
 			infile.nextLine();
 			
 			userName = infile.nextLine();
+			if(username != userName){
+				return null;
+			}
 			
 			for(int i = 0; i < numTasks; i++){
 				String taskInfo = "";

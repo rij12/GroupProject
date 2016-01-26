@@ -1,6 +1,13 @@
 package uk.ac.aber.cs221.group16.authenticaion;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -46,6 +53,27 @@ public class DatabaseConnect {
 	public DatabaseConnect(){
 
 	}
+	
+	public static boolean haveInternet(){
+		Process p1 = null;
+		try {
+			p1 = java.lang.Runtime.getRuntime().exec("ping -c 1 db.dcs.aber.ac.uk");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		int returnVal = 0;
+		try {
+			returnVal = p1.waitFor();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		boolean reachable = (returnVal==0);
+			
+		
+		return reachable;
+	}
 
 	public String getUserName(){
 		return userName;
@@ -56,7 +84,6 @@ public class DatabaseConnect {
 	}
 
 	private String hashing(String password){
-//S		tring password = "123456";
     	
         MessageDigest md = null;
 		try {
@@ -78,11 +105,46 @@ public class DatabaseConnect {
 		return sb.toString();
 		
 	}
+    public static boolean isInternetReachable()
+   {
+       try {
+           //make a URL to a known source
+           URL url = new URL("http://www.google.com");
 
+           //open a connection to that source
+           HttpURLConnection urlConnect = (HttpURLConnection)url.openConnection();
+
+           //trying to retrieve data from the source. If there
+           //is no connection, this line will fail
+           Object objData = urlConnect.getContent();
+
+       } catch (Exception e) {              
+//           e.printStackTrace();
+           return false;
+       }
+
+       return true;
+   }
 	
+    private static boolean isReachable(String addr, int openPort, int timeOutMillis) {
+        // Any Open port on other machine
+        // openPort =  22 - ssh, 80 or 443 - webserver, 25 - mailserver etc.
+        try {
+            try (Socket soc = new Socket()) {
+                soc.connect(new InetSocketAddress(addr, openPort), timeOutMillis);
+            }
+            return true;
+        } catch (IOException ex) {
+            return false;
+        }
+    }
 	public boolean logIn(String email, char[] cs){
 
 		String text = String.valueOf(cs);
+		
+		if(!isReachable("db.dcs.aber.ac.uk", 80, 10)){
+			return false;
+		}
 		
 		try{
 			Connection conn = connect();
@@ -90,7 +152,7 @@ public class DatabaseConnect {
 
 			ResultSet res = stmt.executeQuery("SELECT * FROM members WHERE email='"+ email +"' AND password='" + hashing(text) +"'");
 			if (!res.isBeforeFirst()){
-				System.out.println("Wrong email ");
+				System.out.println("Something is wrong ");
 				loggedIn = false;
 			}
 			else{
@@ -197,7 +259,7 @@ public class DatabaseConnect {
 	 */
 	public ArrayList<Task> sync(ArrayList<Task> tasks){
 
-		if(loggedIn){
+		if(loggedIn && haveInternet()){
 			tasks = removeDeletedTasks(checkForNewTasks(tasks));
 			uploadAllTasks(tasks);
 			
@@ -268,4 +330,5 @@ public class DatabaseConnect {
 	public void setLoggedIn(boolean loggedIn) {
 		this.loggedIn = loggedIn;
 	}
+	
 }

@@ -60,8 +60,7 @@ public class TaskPage extends JFrame {
 	public TaskPage(DatabaseConnect connection) {
 		/* Checks if your logged in and decides if to sync app to database */
 		if (connection.isLoggedIn()) {
-			System.out.println(connection.isLoggedIn());
-			tasks = saveAndLoad.load();
+			tasks = saveAndLoad.load(connection.getUserName());
 			userName = connection.getUserName();
 			if (tasks != null) {
 				connection.sync(tasks);
@@ -71,7 +70,7 @@ public class TaskPage extends JFrame {
 				saveAndLoad.save(tasks, userName);
 			}
 		} else {
-			tasks = saveAndLoad.load();
+			tasks = saveAndLoad.load(null);
 			userName = saveAndLoad.getUserName();
 		}
 
@@ -89,16 +88,16 @@ public class TaskPage extends JFrame {
 
 		mainPanel = new JPanel();
 		contentPane.add(mainPanel, BorderLayout.CENTER);
-		mainPanel.setLayout(new MigLayout("", "[][grow]", "[][grow][]"));
+		mainPanel.setLayout(new MigLayout("debug", "[][grow]", "[][grow][]"));
 
 		lblCurrentUserInformation = new JLabel(userName);
 		mainPanel.add(lblCurrentUserInformation,
 				"cell 0 0,alignx center, align left, aligny top");
 		lblCurrentUserInformation.repaint();
-		txtSearchField = new JTextField();
-		txtSearchField.setText("Search Field");
-		mainPanel.add(txtSearchField, "cell 0 2,alignx left, aligny top");
-		txtSearchField.setColumns(10);
+//		txtSearchField = new JTextField();
+//		txtSearchField.setText("Search Field");
+//		mainPanel.add(txtSearchField, "cell 0 2,alignx left, aligny top");
+//		txtSearchField.setColumns(10);
 
 		// *******JList***********
 		listSelectionModel
@@ -162,13 +161,24 @@ public class TaskPage extends JFrame {
 
 			}
 		});
+		// Stuff
+		JButton rsyncbtn = new JButton("Resync");
+		rsyncbtn.addActionListener( new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				connection.sync(tasks);
+				
+			}
+		} );
 
 		// ********Adding Swing component to the GUI**********
 
 		// *********** Main Panel**********
-		mainPanel.add(list, "cell 0 1, aligny top, growy");
+//		mainPanel.add(list, "cell 0 1, aligny top, growy");
 		mainPanel.add(taskDetailsPanel1, "cell 1 1, aligny top");
 		mainPanel.add(editTaskButton, "cell 1 2 ");
+		mainPanel.add(rsyncbtn, "cell 0 2 ");
 
 		// *Task details Panel****************************
 		taskDetailsPanel1.add(nameLable, "cell 0 0, aligny top, alignx left, ");
@@ -188,10 +198,17 @@ public class TaskPage extends JFrame {
 				
 			}
 		};
+		JScrollPane scrollBar = new JScrollPane(list, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		mainPanel.add(scrollBar, "cell 0 1, aligny top, growy");
+		//	scrollBar.setViewportView(list);
 
 		timer.schedule(hourlyTask, 0l, 1000);
+		
+
 
 	}
+
+	
 
 
 }

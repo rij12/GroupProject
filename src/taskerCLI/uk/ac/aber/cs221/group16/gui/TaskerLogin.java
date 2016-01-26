@@ -117,7 +117,6 @@ public class TaskerLogin extends JFrame {
 				TaskPage mainPage = new TaskPage(connection);
 				frame.setVisible(false);
 				mainPage.setVisible(true);
-				System.err.println("Working!!");
 				dispose();
 				
 			}

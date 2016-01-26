@@ -119,11 +119,10 @@ public class TaskEditor extends JFrame {
 						indexOfCurrentTask = i;
 					}
 				}
+				taskPage.tasks.remove(indexOfCurrentTask);
 				if(connection.isLoggedIn()){ 			// This will only sync if the user is logged in 
 					connection.sync(taskPage.tasks);
 				}
-				taskPage.tasks.remove(indexOfCurrentTask);
-				taskPage.model.clear();
 			}		
 		});
 		editorPanel.add(setToComplete, "cell 1 7,alignx center,aligny center");
