@@ -5,7 +5,7 @@
 	$database = "csgp_16_15_16";
 	
 	$con = @mysqli_connect($server,$dbuser,$dbpass);
-	
-	@mysqli_select_db($con,$database) or die ("Unable to connect to database");
+	@mysqli_select_db($con,$database);
+	//@mysqli_select_db($con,$database) or die ("Unable to connect to database");
 
 ?>

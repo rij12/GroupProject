@@ -1,13 +1,5 @@
 <?php
-	if(isset($_POST['guest'])){
-		$guest = $_POST['guest'];
-			session_start();
-			$_SESSION['login'] = 'guest';
-			
-			$url = "home.php";
-			header("Location: $url");
-		
-	}else{
+	
 	//double check what the @ symbol means with variables
 	@$username = $_POST['username'];
 	@$password = $_POST['password'];
@@ -41,7 +33,7 @@
 			echo 'Login Failed: no matches found';
 		}
 		mysqli_close($con);
-	}
+	
 		
 	
 ?>

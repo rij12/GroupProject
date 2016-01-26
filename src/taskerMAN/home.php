@@ -5,8 +5,10 @@ if( !isset($_SESSION["login"]) ){
 	header("Location: $url");
 	session_destroy();
 }
+$name = $_SESSION["login"];
 
 ?>
+<!DOCTYPE html>
 <html>
 <head> 
 <title> Home </title>
@@ -17,6 +19,7 @@ if( !isset($_SESSION["login"]) ){
 
 		<div id = "bodyContainer"> 
 			<a href = "home.php"><div id ="title"></div></a>
+			<div style="color:white;">Welcome <?php echo $name; ?>!</div>
 			<div id = "bodyMain">
 				<a href = "members.php"><div class = "navOptions" style ="background-image: url(images/membersLogo.png)"></div></a>
 				<a href = "createTask.php"><div class = "navOptions" style ="background-image: url(images/createLogo.png)"></div></a>

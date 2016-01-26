@@ -2,7 +2,7 @@
 	$id = isset($_POST['id']) ? $_POST['id'] : 1;
 	require 'connect.php';
 	
-	$sql = "SELECT * FROM members";
+	$sql = "SELECT * FROM members WHERE name <> 'admin'";
 	$result = mysqli_query($con,$sql);
 	
 	
@@ -24,7 +24,7 @@
 				<div id = "bodyHead"> Remove Member: 							
 							<select name="id" onchange="document.getElementById('selectMember').submit();" required>
 							    <?php
-									while($row = mysqli_fetch_array($result)) {							
+									while($row = mysqli_fetch_array($result)) {					
 										echo '<option value="'. $row['id'] . '">' . $row['name'] . '</option>';
 									}
 									
@@ -52,8 +52,10 @@
 							    <?php
 									$sql = "SELECT * FROM members WHERE id <> '$id'";
 									$result = mysqli_query($con,$sql);
-									while($row = mysqli_fetch_array($result)) {							
+									while($row = mysqli_fetch_array($result)) {	
+										
 										echo '<option value="'. $row['id'] . '">' . $row['name'] . '</option>';
+										
 									}
 									
 								?>

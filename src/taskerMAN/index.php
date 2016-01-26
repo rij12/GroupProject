@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head> 
 <title> Home </title>
@@ -9,12 +10,13 @@
 		<div id = "bodyContainer"> 
 			<div id ="title"></div>
 			<div id = "loginArea">
-				<div class = "loginSection">
-					<form name ="login" method="post" action = "checkLogin.php" style ="margin-left:0.65em">
+				
+					<form name ="login" method="post" action = "checkLogin.php">
+					<div class = "loginSection">
 						<b> Username: </b>
-						<input type="text" name="username" value="" required></br>
+						<input type="text" name="username" value="" required><br>
 				</div>
-				<div class = "loginSection" style ="margin-left:1em">
+				<div class = "loginSection">
 					<b> Password: </b>
 					<input type="password" name="password" value="" required>
 				</div>
@@ -22,11 +24,7 @@
 					<input type = "submit" value = "Login">
 				</div>
 				</form>
-				<form action="checkLogin.php" method="post">
-				<div class = "button">
-					<input type="hidden" value="guest" name="guest">
-					<input type = "submit" value = "Guest">	
-				</div>			
+				<form action="checkLogin.php" method="post">		
 				</form>
 			</div>
 		</div>

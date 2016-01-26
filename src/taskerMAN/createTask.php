@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head> 
 <title> Tasks </title>
@@ -22,7 +23,7 @@ require 'connect.php';
 				<div id = "editTaskBodyMain">
 					<div class = "viewTaskOptions">
 						<div class = "editDescription">Task Title:</div>
-						<input type="text" name="title">
+						<input type="text" name="title" required>
 					</div>
 					<div class = "viewTaskOptions">
 						<div class = "editDescription">Allocated Member:</div>
@@ -55,22 +56,20 @@ if ($result->num_rows > 0) {
 					</div>
 					<div class = "viewTaskOptions">
 						<div class = "editDescription">Start Date:</div>
-						<input type="date" name="sDate">
+						<input type="date" name="sDate" required>
 					</div>
 					<div class = "viewTaskOptions">
 						<div class = "editDescription">Date of Completion:</div>
-						<input type="date" name="cDate">
+						<input type="date" name="cDate" required>
 					</div>
 					<div class = "viewTaskOptions">
 						<div class = "editDescription">Comments:</div>
-						<input type="text" name="comment">
+						<input type="text" name="comment" required>
 					</div>
 					
 					
 					
-					<input type="radio" name="status" value="Allocated">Allocated
-					<input type="radio" name="status" value="Abandoned">Abandoned
-					<input type="radio" name="status" value="Complete">Complete
+					<input type="hidden" name="status" value="Allocated">
 					</div>
 				</div>
 			
@@ -79,7 +78,7 @@ if ($result->num_rows > 0) {
 
 
 	<div id = "bodyFooter">
-						<input name='add' type='submit' id='add' value='add'>
+						<input name='add' type='submit' id='submit' value='add'>
 						<div id = "remove"> Cancel</div>
 					</div>
 					</form>
