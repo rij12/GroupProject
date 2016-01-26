@@ -25,7 +25,11 @@
 							<select name="id" onchange="document.getElementById('selectMember').submit();" required>
 							    <?php
 									while($row = mysqli_fetch_array($result)) {					
-										echo '<option value="'. $row['id'] . '">' . $row['name'] . '</option>';
+										echo '<option value="'. $row['id'] . '"';
+										if($_POST['id'] == $row['id']){
+											echo ' selected ';
+										}
+										echo'>' . $row['name'] . '</option>';
 									}
 									
 									$sql = "SELECT * FROM members WHERE id ='$id'";

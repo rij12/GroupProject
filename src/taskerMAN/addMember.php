@@ -3,12 +3,27 @@
 	$memberName = $_POST['name'];
 	$memberEmail = $_POST['email'];
 	$password = $_POST['password'];
+	require "connect.php";
+	$sql = "SELECT * FROM members WHERE email='$memberEmail'";
+	$result = mysqli_query($con, $sql);
 	
+	if(mysqli_num_rows($result) != 0){
+		$url = "createMember.php?failed=1";
+		header("Location: $url");
+	}
+	mysqli_close($con);
+	
+	$memberName = filter_var($memberName, FILTER_SANITIZE_STRING);
+	$memberEmail = filter_var($memberEmail, FILTER_SANITIZE_EMAIL);
+	$password = filter_var($password, FILTER_SANITIZE_STRING);
 	
 	
 	$hashPass = hash('sha256',$password);
 	
+	
 	require "connect.php";
+	
+	
 	
 	$sql = "INSERT INTO members (id, name, email, password) VALUES (NULL, '$memberName', '$memberEmail', '$hashPass')";
 	mysqli_query($con,$sql);

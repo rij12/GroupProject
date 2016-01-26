@@ -4,6 +4,7 @@
 <title> Tasks </title>
 <link rel="stylesheet" type="text/css" href="styles.css">
 <link rel="stylesheet" type="text/css" href="tasksStyles.css">
+<script src="scripts/script.js"></script>
 </head>
 <body>
 
@@ -66,16 +67,7 @@ if ($result->num_rows > 0) {
 						<div class = "editDescription">Comments:</div>
 						<input type="text" name="comment" maxlength="50" pattern="[a-zA-Z0-9 ]+" required>
 					</div>
-					<script>
-					
-					function validateForm() {
-	var start = document.forms["process"]["sDate"].value;
-	var end = document.forms["process"]["cDate"].value;
-	if (start > end) {
-		alert("The start date must begin before the end date");
-		return false;
-	}
-}</script>
+			
 					<input type="hidden" name="status" value="Allocated">
 					</div>
 				</div>

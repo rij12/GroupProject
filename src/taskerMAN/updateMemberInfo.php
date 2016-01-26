@@ -10,6 +10,10 @@
 	$memberID = $_POST['id'];
 	$password = $_POST['password'];
 	
+	$memberName = filter_var($memberName, FILTER_SANITIZE_STRING);
+	$memberEmail = filter_var($memberEmail, FILTER_SANITIZE_EMAIL);
+	$password = filter_var($password, FILTER_SANITIZE_STRING);
+	
 	if($memberName == "admin"){
 		$admin = "1";
 	}

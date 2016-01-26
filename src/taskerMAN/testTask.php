@@ -1,17 +1,13 @@
 <?php
 
-  require "connect.php";
+ 
                                     
-   $title = $_POST[title];
-   $comments = $_POST[comment];
    
-   $title = filter_var($title, FILTER_SANITIZE_STRING);
-   $comments = filter_var($comments, FILTER_SANITIZE_STRING);
-                                    
-
+	for($i = 0; $i < 1000; $i++){							
+ require "connect.php";
     $sql="INSERT INTO tasks (StartDate,DateOfCompletion,TitleOfTask,MemberAllocated,Status,Comments) 
-    VALUES ('$_POST[sDate]', '$_POST[cDate]', '$_POST[title]' , '$_POST[members]', '$_POST[status]', 
-    '$_POST[comment]' )";
+    VALUES ('26/08/2015', '26/08/2016', 'Test' , '2', 'Allocated', 
+    'This is a comment' )";
                                         
     if ($con->query($sql)) {
     echo "New record created successfully";
@@ -21,6 +17,9 @@
     $result = mysqli_query($con,$query);
                                        
     $con->close();
+	}
+	
+	
 
       $url = "viewTasks.php";
       header("Location: $url");

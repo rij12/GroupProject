@@ -4,6 +4,7 @@
 <title> Tasks </title>
 <link rel="stylesheet" type="text/css" href="styles.css">
 <link rel="stylesheet" type="text/css" href="tasksStyles.css">
+<script src="scripts/script.js"></script>
 </head>
 <body>
 	<div id = "container"> 
@@ -96,17 +97,7 @@
 					<div class = "viewTaskOptions">
 						<div class = "editDescription">Task Elements:</div>
 						<input type="text" name="comments" pattern="[a-zA-Z0-9 ]+" maxlength="50" value="' .$comments. '" required>
-					</div>';?>
-						<script>
-					
-					function validateForm() {
-	var start = document.forms["process"]["sDate"].value;
-	var end = document.forms["process"]["cDate"].value;
-	if (start > end) {
-		alert("The start date must begin before the end date");
-		return false;
-	}
-}</script> <?php
+					</div>';
                 
                 $data = $status;
 

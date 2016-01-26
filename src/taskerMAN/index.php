@@ -14,7 +14,7 @@
 					<form name ="login" method="post" action = "checkLogin.php">
 					<div class = "loginSection">
 						<b> Username: </b>
-						<input type="text" name="username" value="" pattern="[a-zA-Z0-9 ]+" maxlength="50" required><br>
+						<input type="text" name="username" value="" maxlength="50" required><br>
 				</div>
 				<div class = "loginSection">
 					<b> Password: </b>
@@ -39,8 +39,7 @@
 					<input type = "submit" value = "Login">
 				</div>
 				</form>
-				<form action="checkLogin.php" method="post">		
-				</form>
+				<a href="files/TaskerCLI.jar" target="_blank"><div id = "add"> Download Client </div></a>
 			</div>
 		</div>
 	</div>

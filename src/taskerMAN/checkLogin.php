@@ -8,7 +8,8 @@
 	((isset($_POST['username'])) && (isset($_POST['password']))) or die("Login Failed: missing login details");
 	
 	// check whether sha256 can be implemented on java 
-	$user = $username;
+	$user = filter_var($username, FILTER_SANITIZE_EMAIL);
+	$password = filter_var($password, FILTER_SANITIZE_STRING);
 	$pass = hash('sha256', $password);
 	//$pass = $password;
 	
