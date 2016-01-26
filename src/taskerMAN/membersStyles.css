@@ -62,7 +62,7 @@
 	background-image: url(images/portfolio.png);
 }
 
-#nameArea{
+.nameArea{
 	margin-left: 50px;
 	height: 100px;
 	width: 100px;
@@ -72,7 +72,7 @@
 	text-align: right;
 }
 
-#name{
+.name{
 	height: 100px;
 	width: 400px;
 	margin-top: 50px;

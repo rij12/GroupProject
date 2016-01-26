@@ -14,7 +14,7 @@
 					<div id = "editTaskBodyMain">
 						<div class = "viewTaskOptions">
 							<div class = "editDescription">Name:</div>
-							<input type="text" name="name" maxlength="50" required>
+							<input type="text" name="name" maxlength="50" pattern="[a-zA-Z0-9 ]+" required>
 						</div>
 						<div class = "viewTaskOptions">
 							<div class = "editDescription">Email Address:</div>
@@ -22,7 +22,7 @@
 						</div>	
 						<div class = "viewTaskOptions">
 							<div class = "editDescription">Password:</div>
-							<input type="password" name="password" maxlength="50" placeholder="password" required>
+							<input type="password" name="password" maxlength="50" pattern="[a-zA-Z0-9 ]+" placeholder="password" required>
 						</div>
 						<div class = "viewTaskOptions">
 							<div class = "editDescription">Profile Pic:</div>

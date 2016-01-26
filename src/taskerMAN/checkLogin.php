@@ -19,18 +19,26 @@
 			
 		$sql = "SELECT * FROM members WHERE email='$user' AND password='$pass'";
 		$result = mysqli_query($con, $sql);
+		$row = mysqli_fetch_array($result);
 		
 		// if it finds a match with the correct password, and the number of rows retuned is greater than zero
 		if(mysqli_num_rows($result) != 0){
-			// starts the session
+			$admin = $row['admin'];
+			if($admin == 1){
+				// starts the session
 			session_start();
 			$_SESSION['login'] = $user;
 			
 			$url = "home.php";
 			header("Location: $url");
+			}else{
+				$url = "index.php?denied=2";
+			header("Location: $url");
+			}
+			
 			
 		}else{
-			$url = "index.php?denied=true";
+			$url = "index.php?denied=1";
 			header("Location: $url");
 		}
 		mysqli_close($con);

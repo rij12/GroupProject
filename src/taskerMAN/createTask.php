@@ -23,7 +23,7 @@ require 'connect.php';
 				<div id = "editTaskBodyMain">
 					<div class = "viewTaskOptions">
 						<div class = "editDescription">Task Title:</div>
-						<input type="text" name="title" maxlength="50" required>
+						<input type="text" name="title" maxlength="50" pattern="[a-zA-Z0-9 ]+" required>
 					</div>
 					<div class = "viewTaskOptions">
 						<div class = "editDescription">Allocated Member:</div>
@@ -64,7 +64,7 @@ if ($result->num_rows > 0) {
 					</div>
 					<div class = "viewTaskOptions">
 						<div class = "editDescription">Comments:</div>
-						<input type="text" name="comment" maxlength="50" required>
+						<input type="text" name="comment" maxlength="50" pattern="[a-zA-Z0-9 ]+" required>
 					</div>
 					<script>
 					

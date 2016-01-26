@@ -37,7 +37,7 @@
 					<div class = "viewTaskOptions">
 						<div class = "editDescription">Task Title:</div>
 						<input type="hidden" name = "id" value = "' . $row['TaskID']. '">
-						<input type="text" maxlength="50" name="title" value="' . $row['TitleOfTask']. '">
+						<input type="text" maxlength="50" pattern="[a-zA-Z0-9 ]+" name="title" value="' . $row['TitleOfTask']. '">
 						</div>
 						
 						<div class = "viewTaskOptions">
@@ -95,7 +95,7 @@
 					</div>
 					<div class = "viewTaskOptions">
 						<div class = "editDescription">Task Elements:</div>
-						<input type="text" name="comments" maxlength="50" value="' .$comments. '" required>
+						<input type="text" name="comments" pattern="[a-zA-Z0-9 ]+" maxlength="50" value="' .$comments. '" required>
 					</div>';?>
 						<script>
 					
