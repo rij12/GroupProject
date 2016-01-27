@@ -131,6 +131,7 @@ public class TaskPage extends JFrame {
 		/* JList component */
 		list.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent ev) {
+				// THIS LINE IS AN EXPECTION HEAVEN
 				task = tasks.get(list.getSelectedIndex());
 
 				System.err.println(task);
