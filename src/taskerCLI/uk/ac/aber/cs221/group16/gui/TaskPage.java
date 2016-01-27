@@ -47,7 +47,7 @@ public class TaskPage extends JFrame {
 	JLabel startDate;
 	JPanel taskDetailsPanel;
 	JEditorPane editorPane;
-
+	String JListItemString; 
 	ArrayList<Task> tasks = new ArrayList<Task>();
 	Task task = new Task();
 	Load saveAndLoad = new Load();
@@ -106,11 +106,11 @@ public class TaskPage extends JFrame {
 		if (tasks != null) {
 			for (Task t : tasks) {
 				int i = tasks.indexOf(t) + 1;
-				String text = i + " \t" + t.getTitle() + " \t"
+				JListItemString = i + " \t" + t.getTitle() + " \t"
 						+ t.getDeadLine();
 				//
 				if(t.getStatus().equals("Allocated")){
-					model.addElement(text);
+					model.addElement(JListItemString);
 				}
 				
 				i++;
@@ -168,6 +168,7 @@ public class TaskPage extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				connection.sync(tasks);
+				fixJList();
 				
 			}
 		} );
@@ -208,7 +209,21 @@ public class TaskPage extends JFrame {
 
 	}
 
-	
+	public void fixJList(){
+			if (tasks != null) {
+			for (Task t : tasks) {
+				int i = tasks.indexOf(t) + 1;
+				JListItemString = i + " \t" + t.getTitle() + " \t"
+						+ t.getDeadLine();
+				//
+				if(t.getStatus().equals("Allocated")){
+					model.addElement(JListItemString);
+				}
+				
+				i++;
+			}
+		}
+	}
 
 
 }
