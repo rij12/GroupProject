@@ -105,26 +105,7 @@ public class DatabaseConnect {
 		return sb.toString();
 		
 	}
-    public static boolean isInternetReachable()
-   {
-       try {
-           //make a URL to a known source
-           URL url = new URL("http://www.google.com");
-
-           //open a connection to that source
-           HttpURLConnection urlConnect = (HttpURLConnection)url.openConnection();
-
-           //trying to retrieve data from the source. If there
-           //is no connection, this line will fail
-           Object objData = urlConnect.getContent();
-
-       } catch (Exception e) {              
-//           e.printStackTrace();
-           return false;
-       }
-
-       return true;
-   }
+    
 	
     private static boolean isReachable(String addr, int openPort, int timeOutMillis) {
         // Any Open port on other machine
@@ -142,7 +123,7 @@ public class DatabaseConnect {
 
 		String text = String.valueOf(cs);
 		
-		if(!isReachable("db.dcs.aber.ac.uk", 80, 10)){
+		if(!isReachable("aber.ac.uk", 80, 100)){
 			return false;
 		}
 		

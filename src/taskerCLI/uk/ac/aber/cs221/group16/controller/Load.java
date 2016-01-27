@@ -104,9 +104,9 @@ public class Load {
 			infile.nextLine();
 			
 			userName = infile.nextLine();
-			if(username != userName){
-				return null;
-			}
+//			if(username != userName){
+//				return null;
+//			}
 			
 			for(int i = 0; i < numTasks; i++){
 				String taskInfo = "";

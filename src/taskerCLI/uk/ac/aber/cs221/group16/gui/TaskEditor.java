@@ -94,11 +94,13 @@ public class TaskEditor extends JFrame {
 					}
 				}
 
+				taskPage.saveAndLoad.save(taskPage.tasks, taskPage.userName);
 				taskPage.tasks.remove(indexOfCurrentTask); // Removing the old version of the task that are currently being edited 
 				taskPage.tasks.add(task); // adding the new version of the task that are currently being edited 
 				if(connection.isLoggedIn()){ 			// This will only sync if the user is logged in 
 					connection.sync(taskPage.tasks);
 				}
+				
 				//*********************************************
 				dispose();
 			}
@@ -120,6 +122,8 @@ public class TaskEditor extends JFrame {
 					}
 				}
 				taskPage.tasks.remove(indexOfCurrentTask);
+				taskPage.saveAndLoad.save(taskPage.tasks, taskPage.userName);
+				System.out.println(taskPage.tasks);
 				if(connection.isLoggedIn()){ 			// This will only sync if the user is logged in 
 					connection.sync(taskPage.tasks);
 				}

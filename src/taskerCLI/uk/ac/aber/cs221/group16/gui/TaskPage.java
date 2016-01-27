@@ -141,6 +141,8 @@ public class TaskPage extends JFrame {
 				completionDate.setText("Completion date: " + task.getDeadLine());
 				description.setText("Description: " + task.getTaskInfo());
 				startDate.setText("Start date: " + task.getStartDate());
+				
+				System.out.println(tasks);
 			}
 		});
 
@@ -168,8 +170,13 @@ public class TaskPage extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				connection.sync(tasks);
-				fixJList();
+				if(connection.isLoggedIn()){
+					connection.sync(tasks);
+				}
+//				list.clearSelection();
+//				list.
+				
+//				fixJList();
 				
 			}
 		} );
@@ -195,6 +202,19 @@ public class TaskPage extends JFrame {
 			@Override
 			public void run() {
 				description.setText("Description: " + task.getTaskInfo());
+				int toRemove = 99999;
+				for(int i = 0; i < tasks.size(); i++){
+					if(tasks.get(i).getStatus().equals("Complete")){
+						toRemove = i;
+					}
+				}
+				if(toRemove != 99999){
+					tasks.remove(toRemove);
+//					list.remove(toRemove-1);
+				}
+//				list.clearSelection();
+				mainPanel.validate();
+				
 				
 				
 				
@@ -212,6 +232,7 @@ public class TaskPage extends JFrame {
 
 	public void fixJList(){
 			if (tasks != null) {
+				
 			for (Task t : tasks) {
 				int i = tasks.indexOf(t) + 1;
 				JListItemString = i + " \t" + t.getTitle() + " \t"
