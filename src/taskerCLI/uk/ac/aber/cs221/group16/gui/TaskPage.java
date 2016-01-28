@@ -19,11 +19,14 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListDataEvent;
+import javax.swing.event.ListDataListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import net.miginfocom.swing.MigLayout;
 import uk.ac.aber.cs221.group16.authenticaion.DatabaseConnect;
+import uk.ac.aber.cs221.group16.controller.JListListener;
 import uk.ac.aber.cs221.group16.controller.Load;
 import uk.ac.aber.cs221.group16.controller.Task;
 
@@ -53,14 +56,14 @@ public class TaskPage extends JFrame {
 	Load saveAndLoad = new Load();
 	String userName;
 
-	DefaultListModel<String> model = new DefaultListModel<>();
-	JList<String> list = new JList<>(model);
+	DefaultListModel<String> listModel = new DefaultListModel<>();
+	JList<String> list = new JList<>(listModel);
 	ListSelectionModel listSelectionModel = list.getSelectionModel();
 
 	public TaskPage(DatabaseConnect connection) {
 		/* Checks if your logged in and decides if to sync app to database */
 		if (connection.isLoggedIn()) {
-			tasks = saveAndLoad.load(connection.getUserName());
+			tasks = saveAndLoad.load(connection.getUserName(), connection.isLoggedIn());
 			userName = connection.getUserName();
 			if (tasks != null) {
 				connection.sync(tasks);
@@ -70,7 +73,7 @@ public class TaskPage extends JFrame {
 				saveAndLoad.save(tasks, userName);
 			}
 		} else {
-			tasks = saveAndLoad.load(null);
+			tasks = saveAndLoad.load(null, connection.isLoggedIn());
 			userName = saveAndLoad.getUserName();
 		}
 
@@ -110,7 +113,7 @@ public class TaskPage extends JFrame {
 						+ t.getDeadLine();
 				//
 				if(t.getStatus().equals("Allocated")){
-					model.addElement(JListItemString);
+					listModel.addElement(JListItemString);
 				}
 				
 				i++;
@@ -180,6 +183,8 @@ public class TaskPage extends JFrame {
 				
 			}
 		} );
+		
+		
 
 		// ********Adding Swing component to the GUI**********
 
@@ -225,7 +230,8 @@ public class TaskPage extends JFrame {
 		//	scrollBar.setViewportView(list);
 
 		timer.schedule(hourlyTask, 0l, 1000);
-		
+		// Makes shit work
+		listModel.addListDataListener(new JListListener());
 
 
 	}
@@ -239,13 +245,12 @@ public class TaskPage extends JFrame {
 						+ t.getDeadLine();
 				//
 				if(t.getStatus().equals("Allocated")){
-					model.addElement(JListItemString);
+					listModel.addElement(JListItemString);
 				}
 				
 				i++;
 			}
 		}
 	}
-
-
+	
 }

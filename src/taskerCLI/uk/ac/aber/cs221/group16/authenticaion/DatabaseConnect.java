@@ -239,7 +239,6 @@ public class DatabaseConnect {
 	 * @return the updated task list
 	 */
 	public ArrayList<Task> sync(ArrayList<Task> tasks){
-
 		if(loggedIn && haveInternet()){
 			tasks = removeDeletedTasks(checkForNewTasks(tasks));
 			uploadAllTasks(tasks);
@@ -247,7 +246,8 @@ public class DatabaseConnect {
 			disconnect();
 		}
 		else{
-			System.out.println("you are not logged in");
+//			System.out.println("you are not logged in");
+			
 		}
 
 		return getTasks();	

@@ -32,7 +32,7 @@ public class TaskEditor extends JFrame {
 
 	public JPanel contentPane;
 	private JTextField txtCurrentTask;
-
+	private boolean setStatusToComplete = false;
 
 	JButton SubmitButton; // button you click to submit the changes
 	JButton setToComplete; // button you click to set the task to complete
@@ -94,9 +94,18 @@ public class TaskEditor extends JFrame {
 					}
 				}
 
-				taskPage.saveAndLoad.save(taskPage.tasks, taskPage.userName);
-				taskPage.tasks.remove(indexOfCurrentTask); // Removing the old version of the task that are currently being edited 
-				taskPage.tasks.add(task); // adding the new version of the task that are currently being edited 
+				
+//				taskPage.tasks.remove(indexOfCurrentTask); // Removing the old version of the task that are currently being edited 
+//				taskPage.tasks.add(task); // adding the new version of the task that are currently being edited 
+				taskPage.tasks.get(indexOfCurrentTask).setTaskInfo(editorPane.getText());
+				taskPage.tasks.set(indexOfCurrentTask, task);
+//				taskPage.saveAndLoad.save(taskPage.tasks, taskPage.userName);
+				if(setStatusToComplete){
+					taskPage.tasks.get(indexOfCurrentTask).setStatus("Complete");
+					
+					
+				}
+//				taskPage.saveAndLoad.save(taskPage.tasks, taskPage.userName);
 				if(connection.isLoggedIn()){ 			// This will only sync if the user is logged in 
 					connection.sync(taskPage.tasks);
 				}
@@ -111,22 +120,12 @@ public class TaskEditor extends JFrame {
 		setToComplete = new JButton("Completed");
 		setToComplete.addActionListener(new ActionListener(){
 
+			 
+			//*********** Set to complete button1!! ! !! !!! !! ! one ! 111 one
 			public void actionPerformed(ActionEvent e) {
 				setToComplete.setBackground(Color.GREEN);
 				task.setStatus("Complete");
-				int indexOfCurrentTask = 0;
-				System.out.println(taskPage.tasks.size());
-				for(int i = 0; i < taskPage.tasks.size(); i++){
-					if(taskPage.tasks.get(i).getId() == task.getId()){
-						indexOfCurrentTask = i;
-					}
-				}
-				taskPage.tasks.remove(indexOfCurrentTask);
-				taskPage.saveAndLoad.save(taskPage.tasks, taskPage.userName);
-				System.out.println(taskPage.tasks);
-				if(connection.isLoggedIn()){ 			// This will only sync if the user is logged in 
-					connection.sync(taskPage.tasks);
-				}
+				setStatusToComplete = true;
 			}		
 		});
 		editorPanel.add(setToComplete, "cell 1 7,alignx center,aligny center");
