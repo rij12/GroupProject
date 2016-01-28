@@ -1,6 +1,5 @@
 <?php
 	
-	//double check what the @ symbol means with variables
 	@$username = $_POST['username'];
 	@$password = $_POST['password'];
 	
@@ -15,8 +14,6 @@
 	
 	require "connect.php";
 
-	// find out what ctype_alnum does again *** login fails at this point at the moment
-	//if (ctype_alnum(str_replace('@','',$user)) && ctype_alnum($pass)) {
 			
 		$sql = "SELECT * FROM members WHERE email='$user' AND password='$pass'";
 		$result = mysqli_query($con, $sql);
@@ -30,16 +27,16 @@
 			session_start();
 			$_SESSION['login'] = $user;
 			
-			$url = "home.php";
+			$url = "../../home.php";
 			header("Location: $url");
 			}else{
-				$url = "index.php?denied=2";
+				$url = "../../index.php?denied=2";
 			header("Location: $url");
 			}
 			
 			
 		}else{
-			$url = "index.php?denied=1";
+			$url = "../../index.php?denied=1";
 			header("Location: $url");
 		}
 		mysqli_close($con);

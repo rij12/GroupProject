@@ -10,22 +10,28 @@ $name = $_SESSION["login"];
 ?>
 <!DOCTYPE html>
 <html>
+
 <head> 
-<title> Home </title>
-<link rel="stylesheet" type="text/css" href="homeStyles.css">
+	<title> Home </title>
+	<link rel="stylesheet" type="text/css" href="includes/css/homeStyles.css">
 </head>
+
 <body>
 	<div id = "container">
-
 		<div id = "bodyContainer"> 
 			<a href = "home.php"><div id ="title"></div></a>
-			<div style="color:white;">Welcome <?php echo $name; ?>!</div>
+			<div id = "errorField">Welcome <?php echo $name; ?>!</div>
 			<div id = "bodyMain">
-				<a href = "members.php"><div class = "navOptions" style ="background-image: url(images/membersLogo.png)"></div></a>
-				<a href = "createTask.php"><div class = "navOptions" style ="background-image: url(images/createLogo.png)"></div></a>
-				<a href = "viewTasks.php"><div class = "navOptions" style ="background-image: url(images/viewTasks.png)"></div></a>
+				<div id = "navOptionsContainer">
+					<a href = "members.php"><div class = "navOptions" style ="background-image: url(images/membersLogo.png);"></div></a>
+					<a href = "createTask.php"><div class = "navOptions" style ="background-image: url(images/createLogo.png)"></div></a>
+					<a href = "viewTasks.php"><div class = "navOptions" style ="background-image: url(images/viewTasks.png)"></div></a>
+					<a href = "includes/php/logout.php" onclick="return confirm('Are you sure you want to logout?')"><div class = "navOptions" style ="background-image: url(images/logout.png)">
+					</div></a>
+				</div>
 			</div>
 		</div>
 	</div>
 </body>
+
 </html>

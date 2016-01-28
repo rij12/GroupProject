@@ -2,7 +2,7 @@
 
 session_start();
 
-$url = "index.php";
+$url = "../../index.php";
 header("Location: $url");
 session_destroy();
 

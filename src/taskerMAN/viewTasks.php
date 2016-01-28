@@ -2,16 +2,16 @@
 <html>
     <head>
         <title> Tasks </title>
-        <link rel="stylesheet" type="text/css" href="styles.css">
-        <link rel="stylesheet" type="text/css" href="tasksStyles.css">
+        <link rel="stylesheet" type="text/css" href="includes/css/styles.css">
+        <link rel="stylesheet" type="text/css" href="includes/css/tasksStyles.css">
     </head>
     <body>
         <?php
-        require 'connect.php';
+        require 'includes/php/connect.php';
         ?>
 
         <div id = "container">
-            <?php include 'menu.php'; ?>
+            <?php include 'includes/php/menu.php'; ?>
             <div id ="bodyContainer">
                 <div id ="body">
 

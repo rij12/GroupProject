@@ -35,7 +35,7 @@
 	
 	if((!empty($_FILES['picture']['name'])) && ($_FILES['picture']['error'] == 0)) {
      //Defines the path which to save the file to
-      $newname = dirname(__FILE__).'/images/profilepics/pic'. $id . '.png';
+      $newname = dirname(__FILE__).'../../images/profilepics/pic'. $id . '.png';
      // if the file already exists on the server, remove it
 	  if(file_exists($newname)) unlink($newname);
         //Tries to move the uploaded file to its new location
@@ -44,15 +44,14 @@
         } 
 	} 
 	else {
-		copy('images/portfolio.png', 'images/profilepics/pic'. $id . '.png');
+		copy('../../images/portfolio.png', '../../images/profilepics/pic'. $id . '.png');
 	}
 	
 	//redirects to members page
-	$url = "members.php";
+	$url = "../../members.php";
 	header( "Location: $url" );
 	}else{
-		$url = "createMember.php?failed=1";
+		$url = "../../createMember.php?failed=1";
 		header("Location: $url");
 	}
-
 ?>

@@ -51,6 +51,7 @@ input{
 	background-color: white;
 	border: solid 1px black;
 	margin-left: 25px;
+	padding-left: 10px;
 	padding-top: 10px;
 	font-family: arial;
 	text-align: left;
@@ -64,18 +65,19 @@ input{
 	border: solid 1px black;
 	margin-left: 25px;
 	padding-top: 10px;
+	padding-left: 10px;
 	font-family: arial;
 	text-align: left; 
 }
 
 
 #submit{
-	height: 50px;
-	width: 200px;
+	height: 57.5px;
+	width: 175px;
 	background-color: green;
-	border: solid 1px black;
-	margin-left: 400px;
-	margin-top: 150px;
+	border: solid 1px white;
+	color: white;
+	margin-left: 275px;
 }
 
 #cancel{
@@ -83,6 +85,6 @@ input{
 	width: 200px;
 	background-color: red;
 	border: solid 1px black;
-	margin-left: 400px;
+	margin-left: 75px;
 	margin-top: 150px;
 }
