@@ -23,6 +23,7 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -32,14 +33,32 @@ import java.io.PrintWriter;
 public class Load {		
 
 	private static String saveFolder;	
-	private static String filename = "saveLocation.txt";
+	private static String filename = "tasks.txt";
 	private Scanner scan;
 	private String userName;
+	
+	String path;
+	File file;
+	
+
 
 	/**
 	 * 
 	 */
 	public Load(){
+		path = System.getProperty("user.home") + File.separator + "Documents";
+		path += File.separator + "TaskerCLI";
+		File customDir = new File(path);	
+
+		if (customDir.exists()) {
+		    System.out.println(customDir + " already exists");
+		} else if (customDir.mkdirs()) {
+		    System.out.println(customDir + " was created");
+		} else {
+		    System.out.println(customDir + " was not created");
+		}
+		
+		  file = new File(path +"/" + filename);
 	}
 
 	/**
@@ -84,7 +103,7 @@ public class Load {
 	 * @param tasks
 	 */
 	public void save(ArrayList<Task> tasks, String userName2){
-		try(FileWriter fw = new FileWriter(filename);
+		try(FileWriter fw = new FileWriter(file);
 				BufferedWriter bw = new BufferedWriter(fw);
 				PrintWriter outfile = new PrintWriter(bw);){
 
@@ -103,7 +122,7 @@ public class Load {
 				outfile.println(t.getStartDate());
 			}
 		} catch (IOException e) {
-			System.err.println("Problem when trying to write to file: " + filename);
+			System.err.println("Problem when trying to write to file: " + file);
 		}
 	}
 	
@@ -129,7 +148,7 @@ public class Load {
 
 		ArrayList<Task> tasks = new ArrayList();
 
-		try(FileReader fr = new FileReader(filename);
+		try(FileReader fr = new FileReader(file);
 				BufferedReader br = new BufferedReader(fr);
 				Scanner infile = new Scanner(br)){
 			int numTasks = infile.nextInt();

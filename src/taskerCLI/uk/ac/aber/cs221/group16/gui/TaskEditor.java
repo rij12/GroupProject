@@ -33,6 +33,7 @@ public class TaskEditor extends JFrame {
 	public JPanel contentPane;
 	private JTextField txtCurrentTask;
 	private boolean setStatusToComplete = false;
+	int indexOfCurrentTask;
 
 	JButton SubmitButton; // button you click to submit the changes
 	JButton setToComplete; // button you click to set the task to complete
@@ -44,8 +45,11 @@ public class TaskEditor extends JFrame {
 	
 
 	public TaskEditor(Task task, DatabaseConnect connection) {
+		
+		System.out.println(task.getTaskInfo());
+		
 		TaskPage taskPage = new TaskPage(connection);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		user = task.getUser(); 
 
 		//**************************** Main Panel *************************
@@ -86,23 +90,28 @@ public class TaskEditor extends JFrame {
 				//Sync local copy with arraylist. 		
 
 				task.setTaskInfo(editorPane.getText());
-				int indexOfCurrentTask = 0;
+				System.out.println(task.getTaskInfo());
+				indexOfCurrentTask = 0;
+				
 
 				for(int i = 0; i < taskPage.tasks.size(); i++){
 					if(taskPage.tasks.get(i).getId() == task.getId()){
 						indexOfCurrentTask = i;
 					}
 				}
-
-				
+				System.out.println(indexOfCurrentTask);
+					
 //				taskPage.tasks.remove(indexOfCurrentTask); // Removing the old version of the task that are currently being edited 
 //				taskPage.tasks.add(task); // adding the new version of the task that are currently being edited 
 				taskPage.tasks.get(indexOfCurrentTask).setTaskInfo(editorPane.getText());
 				taskPage.tasks.set(indexOfCurrentTask, task);
+				
+			
 //				taskPage.saveAndLoad.save(taskPage.tasks, taskPage.userName);
 				if(setStatusToComplete){
 					taskPage.tasks.get(indexOfCurrentTask).setStatus("Complete");
 					
+					taskPage.deleteItemFromJList(indexOfCurrentTask);
 					
 				}
 //				taskPage.saveAndLoad.save(taskPage.tasks, taskPage.userName);

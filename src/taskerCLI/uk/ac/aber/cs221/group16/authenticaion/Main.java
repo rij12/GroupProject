@@ -28,6 +28,11 @@ public class Main {
 	
 	   public static void main(String[] args) {
 		   
+		   String a = "test";
+		   String b = "stuff";
+		   
+		   System.out.println(a.concat(b));
+		   
 		   
 //		   System.out.println(haveInternet());
 		   
