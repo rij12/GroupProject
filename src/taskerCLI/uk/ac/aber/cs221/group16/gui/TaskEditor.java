@@ -113,7 +113,7 @@ public class TaskEditor extends JFrame {
 				//*********************************************
 				dispose();
 			}
-		});
+		});	
 		//**********Submit button end ***************//
 		editorPanel.add(SubmitButton, "cell 0 7,alignx center,aligny center");
 
