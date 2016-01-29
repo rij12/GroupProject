@@ -35,7 +35,7 @@
 	
 	if((!empty($_FILES['picture']['name'])) && ($_FILES['picture']['error'] == 0)) {
      //Defines the path which to save the file to
-      $newname = dirname(__FILE__).'../../images/profilepics/pic'. $id . '.png';
+      $newname = dirname(__FILE__).'/../../images/profilepics/pic'. $id . '.png';
      // if the file already exists on the server, remove it
 	  if(file_exists($newname)) unlink($newname);
         //Tries to move the uploaded file to its new location

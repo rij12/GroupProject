@@ -21,7 +21,7 @@
 						<!-- User input field with validation and instruction for name -->
 						<div class = "viewTaskOptions">
 							<div class = "editDescription">Name:</div> 		<!-- Instruction -->
-							<input type="text" name="name" maxlength="50" pattern="[a-zA-Z0-9 ]+" required> 	<!-- input -->
+							<input type="text" name="name" maxlength="20" pattern="[a-zA-Z ]+" required> 	<!-- input -->
 						</div>
 
 						<!-- User input field with validation and instruction for email -->

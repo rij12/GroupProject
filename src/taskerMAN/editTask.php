@@ -6,7 +6,7 @@
 	<!-- CSS style sheets used within the page are declared here -->
 	<link rel="stylesheet" type="text/css" href="includes/css/styles.css">
 	<link rel="stylesheet" type="text/css" href="includes/css/tasksStyles.css">
-	<script src="scripts/scripts.js"></script>
+	<script src="scripts/script.js"></script>
 </head>
 
 <body>
@@ -39,7 +39,7 @@
 		        	echo '	<form method="POST" name="process" action="includes/php/updateTasks.php" onsubmit="return validateForm()">
 		        			<div id = "editTaskBodyMain">
 		        				'//Allows editing of task title
-		        				' 
+		        				. ' 
 								<div class = "viewTaskOptions">
 									<div class = "editDescription">Task Title:</div>
 									<input type="hidden" name = "id" pattern="[a-zA-Z0-9 ]+" value = "' . $row['TaskID']. '">
@@ -48,9 +48,9 @@
 								
 								<div class = "viewTaskOptions">
 								'//Allows alteration of who the task is allocated via a drop down list
-		        				' 
+		        				. ' 
 									<div class = "editDescription">Allocated Member:</div>
-									<div class = "editDescription" style = "margin-left: -85px;"><select name="member"></div>';
+									<div class = "editDescription" style = "margin-left: -85px;"><select name="member">';
 
 
 									$sql = "SELECT * FROM members where id='$member'";
@@ -85,12 +85,12 @@
 								 
 
 								
-							echo'</select>
+							echo'</select></div>
 							</div>
 							
-							</div>
+							
 							'//Allows editing of task start date
-		        				' 
+		        			.	' 
 							<div class = "viewTaskOptions">
 						<div class = "editDescription">Start Date:</div>
 						<input type="date" name="sDate" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" value="';
@@ -99,7 +99,7 @@
 						echo '" required>
 					</div>
 					'//Allows editing of task deadline
-		        				' 
+		        	.			' 
 					<div class = "viewTaskOptions">
 						<div class = "editDescription">Date of Completion:</div>
 						<input type="date" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" name="cDate" value="';
@@ -108,10 +108,10 @@
 						echo '" required>
 					</div>
 					'//Allows editing of task comments
-		        				' 
+		        			.	' 
 							<div class = "viewTaskOptions">
 								<div class = "editDescription">Task Elements:</div>
-								<input type="text" name="comments" maxlength="50" value="' .$comments. '" required>
+								<input type="text" name="comments" maxlength="1000" value="' .$comments. '" required>
 							</div>';
 						                
 			        $data = $status;
@@ -144,7 +144,7 @@
 					$con->close();
 				?>
 
-				
+				</div>
 				</form>
 				</div>
 			</div>

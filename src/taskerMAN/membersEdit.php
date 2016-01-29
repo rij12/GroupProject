@@ -33,9 +33,21 @@
 					<div id ="bodyRight">	<!-- Allows edit of all members information -->
 						<form enctype="multipart/form-data" action="includes/php/updateMemberInfo.php" method = "post">
 							<div class = "nameArea"> <b>Full Name:</b> </div>
-							<div class = "name"> <input type="text" name="Name" maxlength="50" value="<?php echo $row['name']; ?>" required></div>
+							<div class = "name"> <input type="text" name="Name" maxlength="20" pattern="[a-zA-Z ]+" value="<?php echo $row['name']; ?>" required></div>
 							<div class = "nameArea"> <b>E-Mail:</b></div>
-							<div class = "name"> <input type="text" name="Email" maxlength="50" value="<?php echo $row['email']; ?>" required></div>
+							<div class = "name"> <input type="text" name="Email" maxlength="50" value="<?php echo $row['email']; ?>" required>
+							<div <?php
+									// Stops douplicate emails by checking for existing emails matching input
+									if(!(isset($_GET['failed']) && $_GET['failed'] == 1)){
+										echo ' hidden';
+									}
+								?> name="text">
+								<?php
+									if($_GET['failed'] == 1){	 // If failed, post error message
+										echo '<div style = "text-indent:25px; font-family: tahoma;">The email address you specified already exists</div>';
+									}
+								?>
+							</div></div>
 							<div class = "nameArea"><b>Password:</b></div>
 							<div class = "name"><input type="password" name="password" maxlength="50"></div>
 							<div class = "nameArea"><b>Profile Picture:</b></div>

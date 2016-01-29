@@ -1,12 +1,11 @@
 <?php
-session_save_path("/aber/djt/tmp");
 session_start();
-if( !isset($_SESSION["daajkhjkhjhk"]) ){
+if( !isset($_SESSION["login"]) ){
 	$url = "../../index.php";
 	header("Location: $url");
 	session_destroy();
 }
-
+error_reporting(0);
 ?>
 <div id = "header">
 	<div id ="title"><a href = "home.php"><div id = "logo"></div></div></a>

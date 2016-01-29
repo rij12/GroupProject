@@ -5,7 +5,7 @@
 	<!-- CSS style sheets used within the page are declared here -->
 	<link rel="stylesheet" type="text/css" href="includes/css/styles.css">
 	<link rel="stylesheet" type="text/css" href="includes/css/tasksStyles.css">
-	<script src="scripts/scripts.js"></script>
+	<script src="scripts/script.js"></script>
 </head>
 <body>
 
@@ -33,7 +33,7 @@
 				<div class = "viewTaskOptions">
 					<div class = "editDescription">Allocated Member:</div> 	<!-- Instruction -->
 					<div class = "editDescription" style = "margin-left: -85px;"> 	<!-- input -->
-						<select name="member">;
+						<select name="members">;
 							<?php 										//Drop down list with each existing member
 								$sql = "SELECT * FROM members";
 								$result = $con->query($sql);
@@ -63,7 +63,7 @@
 					<!-- User input field and instruction for any comments -->
 					<div class = "viewTaskOptions">
 						<div class = "editDescription">Comments:</div> 	<!-- Instruction -->
-						<input type="text" name="comment" maxlength="50" required> 	<!-- input -->
+						<input type="text" name="comment" maxlength="1000" required> 	<!-- input -->
 					</div>
 
 					<input type="hidden" name="status" value="Allocated">
@@ -72,6 +72,6 @@
 		</form>
 	</div>
 </div>	
-		
+		</div>
 </body>
 </html>

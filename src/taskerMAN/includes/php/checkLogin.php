@@ -1,5 +1,5 @@
 <?php
-	session_save_path("/aber/djt/tmp");
+	
 	@$username = $_POST['username'];
 	@$password = $_POST['password'];
 	
@@ -25,7 +25,7 @@
 			if($admin == 1){
 				// starts the session
 			session_start();
-			$_SESSION['daajkhjkhjhk'] = $user;
+			$_SESSION['login'] = $user;
 			
 			$url = "../../home.php";
 			header("Location: $url");

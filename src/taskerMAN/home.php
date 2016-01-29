@@ -1,16 +1,11 @@
-<<<<<<< HEAD
 <?php //Session start to allow for only users with permission to enter website
-=======
-<?php
-session_save_path("/aber/djt/tmp");
->>>>>>> origin/master
 session_start();
-if( !isset($_SESSION["daajkhjkhjhk"]) ){
+if( !isset($_SESSION["login"]) ){
 	$url = "index.php";
 	header("Location: $url");
 	session_destroy();
 }
-$name = $_SESSION["daajkhjkhjhk"];
+$name = $_SESSION["login"];
 
 ?>
 <!DOCTYPE html>
@@ -26,7 +21,7 @@ $name = $_SESSION["daajkhjkhjhk"];
 	<div id = "container">
 		<div id = "bodyContainer"> 
 			<a href = "home.php"><div id ="title"></div></a>
-			<div id = "errorField">Welcome <?php echo $name; ?>!</div> <!-- Welcome message for whoever is logged in at the time -->
+			<div class = "errorField">Welcome <?php echo $name; ?>!</div> <!-- Welcome message for whoever is logged in at the time -->
 			<div id = "bodyMain">
 				<div id = "navOptionsContainer">		<!-- Navigation options -->
 					<a href = "members.php"><div class = "navOptions" style ="background-image: url(images/membersLogo.png);"></div></a>

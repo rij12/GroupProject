@@ -1,3 +1,12 @@
+<?php //Session start to allow for only users with permission to enter website, if they are already logged in redirect them to the home page
+session_start();
+if(isset($_SESSION["login"]) ){
+	$url = "home.php";
+	header("Location: $url");
+}
+
+
+?>
 <!DOCTYPE html>
 <html>
 
@@ -13,7 +22,7 @@
 			<div id ="title"></div> 		<!-- "title" displays the banner of the website within its CSS code -->
 
 			<!-- here an error message will be displayed if the user has tried to log in inccorectly -->
-			<div id = "errorField"			
+			<div class = "errorField"			
 				<?php 
 					if(!(isset($_GET['denied']) && ($_GET['denied'] == "1" || $_GET['denied'] == "2"))){
 						echo 'hidden';
@@ -30,7 +39,7 @@
 			<div id = "loginArea">				<!-- loginArea is the area in which the user can log in from -->
 				<form name ="login" method="post" action = "includes/php/checkLogin.php">
 					<div id = "loginLeft">		<!-- loginArea is split into two halfs for presentation purposes -->
-						Username:</br>
+						Username:<br>
 						Password:
 					</div>
 
@@ -43,7 +52,7 @@
 						</div>
 				</form>
 
-				<div id = "errorField">			<!-- errorField is re-used to save memory in CSS file -->
+				<div class = "errorField">			<!-- errorField is re-used to save memory in CSS file -->
 					<a href = "files/TaskerCLI.jar" target = "_blank">		<!-- Link to download the taskerCLI client -->
 						<div id = "downloadLink"> Dowload Client </div>
 					</a>

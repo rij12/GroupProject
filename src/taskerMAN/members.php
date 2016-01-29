@@ -8,7 +8,6 @@
 
 <!DOCTYPE html>
 <html>
-
 <head> 
 	<title> Members </title>
 	<!-- CSS style sheets used within the page are declared here -->

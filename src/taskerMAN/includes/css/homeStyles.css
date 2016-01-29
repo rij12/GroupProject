@@ -97,7 +97,7 @@ body{
 }
 
 /* Div used to display error messages when required */
-#errorField{
+.errorField{
 	color: white;
 	font-family: tahoma;
 	height: 50px;
