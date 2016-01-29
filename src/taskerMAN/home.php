@@ -1,4 +1,4 @@
-<?php
+<?php //Session start to allow for only users with permission to enter website
 session_start();
 if( !isset($_SESSION["login"]) ){
 	$url = "index.php";
@@ -13,6 +13,7 @@ $name = $_SESSION["login"];
 
 <head> 
 	<title> Home </title>
+	<!-- CSS style sheets used within the page are declared here -->
 	<link rel="stylesheet" type="text/css" href="includes/css/homeStyles.css">
 </head>
 
@@ -20,9 +21,9 @@ $name = $_SESSION["login"];
 	<div id = "container">
 		<div id = "bodyContainer"> 
 			<a href = "home.php"><div id ="title"></div></a>
-			<div id = "errorField">Welcome <?php echo $name; ?>!</div>
+			<div id = "errorField">Welcome <?php echo $name; ?>!</div> <!-- Welcome message for whoever is logged in at the time -->
 			<div id = "bodyMain">
-				<div id = "navOptionsContainer">
+				<div id = "navOptionsContainer">		<!-- Navigation options -->
 					<a href = "members.php"><div class = "navOptions" style ="background-image: url(images/membersLogo.png);"></div></a>
 					<a href = "createTask.php"><div class = "navOptions" style ="background-image: url(images/createLogo.png)"></div></a>
 					<a href = "viewTasks.php"><div class = "navOptions" style ="background-image: url(images/viewTasks.png)"></div></a>

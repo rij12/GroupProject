@@ -1,3 +1,7 @@
+/* Styles for all pages. Acts as a template for all pages. */
+
+/* All classes and id's in styles.css will be available for all pages, to ensure consistant styling */
+
 #container{		/* Makes website fill page */
 	position: absolute;
 	width: 100%;
@@ -103,6 +107,7 @@ a:visited{
 	width: 100%;
 }
 
+/* Buttons sttyles */
 #submit{
 	float: left;
 	height: 150px;

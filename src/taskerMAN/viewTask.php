@@ -2,12 +2,13 @@
 <html>
     <head> 
         <title> Tasks </title>
+        <!-- CSS style sheets used within the page are declared here -->
         <link rel="stylesheet" type="text/css" href="includes/css/styles.css">
         <link rel="stylesheet" type="text/css" href="includes/css/tasksStyles.css">
     </head>
     <body>
 
-
+		<!-- PHP files used within the page are declared here -->
         <?php
         require 'includes/php/connect.php';
         ?>
@@ -26,7 +27,7 @@ $result = $con->query($sql);
 
 if ($result->num_rows > 0) {
 
-    while ($row = $result->fetch_assoc()) {
+    while ($row = $result->fetch_assoc()) {		// Gather all information on task from database
 
 		$startdate = $row['StartDate'];
 		$completedate = $row['DateOfCompletion'];
@@ -70,10 +71,10 @@ if ($result->num_rows > 0) {
     }
 } else {
     echo "0 results";
-}
+}	//Disconnect
 $con->close();
-?>
-                <a href = "viewTasks.php"><div id = "return">Return</div></a>
+?>			
+                <a href = "viewTasks.php"><div id = "return">Return</div></a> <!-- return to tasks page -->
             </div>
         </div>
     </div>

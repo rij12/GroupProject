@@ -2,10 +2,10 @@
 <html>
 <head> 
 <title> Tasks </title>
-<!-- CSS style sheets used within the page are declared here -->
-<link rel="stylesheet" type="text/css" href="includes/css/styles.css">
-<link rel="stylesheet" type="text/css" href="includes/css/tasksStyles.css">
-<script src="scripts/scripts.js"></script>
+	<!-- CSS style sheets used within the page are declared here -->
+	<link rel="stylesheet" type="text/css" href="includes/css/styles.css">
+	<link rel="stylesheet" type="text/css" href="includes/css/tasksStyles.css">
+	<script src="scripts/scripts.js"></script>
 </head>
 <body>
 
@@ -24,17 +24,17 @@
 	<div id ="body">
 		<form method="POST" name="process" action="includes/php/processTask.php" onsubmit="return validateForm()">
 			<div id = "editTaskBodyMain">
-
+			<!-- User input field with validation and instruction for title of task -->
 				<div class = "viewTaskOptions">
-					<div class = "editDescription">Task Title:</div>
-					<input type="text" name="title" maxlength="50" pattern="[a-zA-Z0-9 ]+" required>
+					<div class = "editDescription">Task Title:</div> 	<!-- Instruction -->
+					<input type="text" name="title" maxlength="50" pattern="[a-zA-Z0-9 ]+" required> 	<!-- input -->
 				</div>
-
+				<!-- User input field for allocation of member -->
 				<div class = "viewTaskOptions">
-					<div class = "editDescription">Allocated Member:</div>
-					<div class = "editDescription" style = "margin-left: -85px;">
+					<div class = "editDescription">Allocated Member:</div> 	<!-- Instruction -->
+					<div class = "editDescription" style = "margin-left: -85px;"> 	<!-- input -->
 						<select name="member">;
-							<?php
+							<?php 										//Drop down list with each existing member
 								$sql = "SELECT * FROM members";
 								$result = $con->query($sql);
 
@@ -50,20 +50,20 @@
 						</select>
 					</div>
 				</div>
-
+					<!-- User input field with validation and instruction for start date -->
 					<div class = "viewTaskOptions">
-						<div class = "editDescription">Start Date:</div>
-						<input type="date" name="sDate" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" required>
+						<div class = "editDescription">Start Date:</div> <!-- Instruction -->
+						<input type="date" name="sDate" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" required> <!-- input -->
 					</div>
-
+					<!-- User input field with validation and instruction for deadline -->
 					<div class = "viewTaskOptions">
-						<div class = "editDescription">Date of Completion:</div>
-						<input type="date" name="cDate" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" required>
+						<div class = "editDescription">Date of Completion:</div> 	<!-- Instruction -->
+						<input type="date" name="cDate" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" required> 	<!-- input -->
 					</div>
-
+					<!-- User input field and instruction for any comments -->
 					<div class = "viewTaskOptions">
-						<div class = "editDescription">Comments:</div>
-						<input type="text" name="comment" maxlength="50" required>
+						<div class = "editDescription">Comments:</div> 	<!-- Instruction -->
+						<input type="text" name="comment" maxlength="50" required> 	<!-- input -->
 					</div>
 
 					<input type="hidden" name="status" value="Allocated">

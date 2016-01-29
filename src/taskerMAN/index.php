@@ -30,17 +30,16 @@
 			<div id = "loginArea">				<!-- loginArea is the area in which the user can log in from -->
 				<form name ="login" method="post" action = "includes/php/checkLogin.php">
 					<div id = "loginLeft">		<!-- loginArea is split into two halfs for presentation purposes -->
-						<b> Username: </b></br>
-						<b> Password: </b>
+						Username:</br>
+						Password:
 					</div>
 
 					<div id = "loginRight">		<!-- loginArea is split into two halfs for presentation purposes -->
-						<input type="text" name="username" value="" maxlength="50" required><br>
-						<input type="password"  pattern = "[a-zA-Z0-9 ]+" name="password" value="" maxlength="50" required>
+						<input type="text" name="username" value="" maxlength="50" size="29" required><br>
+						<input type="password"  pattern = "[a-zA-Z0-9 ]+" name="password" value="" maxlength="50" size="29" required>
 						
-						<div class = "button">
 							<input type = "submit" value = "Login">
-						</div>
+						
 						</div>
 				</form>
 

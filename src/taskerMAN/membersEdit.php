@@ -14,21 +14,23 @@
 
 <head> 
 	<title> Members </title>
+	<!-- CSS style sheets used within the page are declared here -->
 	<link rel="stylesheet" type="text/css" href="includes/css/styles.css">
 	<link rel="stylesheet" type="text/css" href="includes/css/membersStyles.css">
 </head>
 
 <body>
 	<div id = "container"> 
+	<!-- PHP files used within the page are declared here -->
 		<?php include 'includes/php/menu.php'; ?>
 		<div id ="bodyContainer">
 			<div id ="body">
-				<div id = "bodyHead">Edit Member: <?php echo $row['name']; ?></div>
+				<div id = "bodyHead">Edit Member: <?php echo $row['name']; ?></div> <!-- current members name -->
 				<div id = "membersInfoBodyMain">
 					<div id = "bodyLeft">
-						<div id ="porfolio"><img src="images/profilepics/pic<?php echo $row['id']; ?>.png" alt="portfolio image" height="247" width="199"></div>
+						<div id ="porfolio"><img src="images/profilepics/pic<?php echo $row['id']; ?>.png" alt="portfolio image" height="247" width="199"></div> <!-- profile picture -->
 					</div>
-					<div id ="bodyRight">
+					<div id ="bodyRight">	<!-- Allows edit of all members information -->
 						<form enctype="multipart/form-data" action="includes/php/updateMemberInfo.php" method = "post">
 							<div class = "nameArea"> <b>Full Name:</b> </div>
 							<div class = "name"> <input type="text" name="Name" maxlength="50" value="<?php echo $row['name']; ?>" required></div>
@@ -41,13 +43,13 @@
 							<div class = "nameArea"></div><div class = "name">
 							<?php
 
-								if($row['name'] != "admin"){
+								if($row['name'] != "admin"){	 //Stops admin from being able to change own admin status
 								echo '<input type="checkbox" name="admin" value="admin"';
 								
 								$sql = "SELECT * FROM members WHERE id='$id'";
 								$result = mysqli_query($con,$sql);
 								$row = mysqli_fetch_array($result);
-								if($row['admin'] == 1){
+								if($row['admin'] == 1){			// Allows admin to set others to admin
 									echo ' checked';
 								}
 									echo '
