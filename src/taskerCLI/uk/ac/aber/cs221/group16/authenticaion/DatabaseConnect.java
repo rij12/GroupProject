@@ -21,12 +21,15 @@ package uk.ac.aber.cs221.group16.authenticaion;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.net.NetworkInterface;
 import java.net.Socket;
+import java.net.SocketException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
+import java.util.Enumeration;
 
 import com.mysql.jdbc.UpdatableResultSet;
 
@@ -45,9 +48,8 @@ public class DatabaseConnect {
 
 
 	// for the userlogin 
-	private String USERNAME;
-	private String PASSWORD;
 	private Connection connection = null;
+	private boolean didItSync;
 
 
 	/**
@@ -60,26 +62,8 @@ public class DatabaseConnect {
 
 	}
 	
-	public static boolean haveInternet(){
-		Process p1 = null;
-		try {
-			p1 = java.lang.Runtime.getRuntime().exec("ping -c 1 db.dcs.aber.ac.uk");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		int returnVal = 0;
-		try {
-			returnVal = p1.waitFor();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		boolean reachable = (returnVal==0);
-			
-		
-		return reachable;
-	}
+	
+
 	/**
 	 * This method returns the username
 	 * @return
@@ -94,6 +78,64 @@ public class DatabaseConnect {
 	public void setUserName(String theUserName){
 		userName = theUserName;
 	}
+	
+	// ******************************************** Check connection things
+	private boolean checkForInterfaces(){
+
+
+		Enumeration<NetworkInterface> interfaces = null;
+		try {
+			interfaces = NetworkInterface.getNetworkInterfaces();
+		} catch (SocketException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		while (interfaces.hasMoreElements()) {
+			NetworkInterface interf = interfaces.nextElement();
+			try {
+				if (interf.isUp() && !interf.isLoopback()){
+					return true;
+				}
+			} catch (SocketException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+		return false;
+	}
+	
+	/**
+	 * This method will check if the server is reachable. 
+	 * @param addr - the address you want to check if it is available
+	 * @param openPort - the port you want to access
+	 * @param timeOutMillis - the timeout before you give up
+	 * @return
+	 */
+    private static boolean isReachable(String addr, int openPort, int timeOutMillis) {
+        // Any Open port on other machine
+        // openPort =  22 - ssh, 80 or 443 - webserver, 25 - mailserver etc.
+        try {
+            try (Socket soc = new Socket()) {
+                soc.connect(new InetSocketAddress(addr, openPort), timeOutMillis);
+            }
+            return true;
+        } catch (IOException ex) {
+            return false;
+        }
+    }
+    
+    public boolean haveInternet(){
+    	if(!checkForInterfaces()){
+    		return false;
+    	}
+    	else if(!isReachable("aber.ac.uk", 80, 100)){
+    		return false;
+    	}
+    	return true;
+    }
+    
+    // *****************************************************************************
 
 	/**
 	 * This method is for hashing the password. 
@@ -122,25 +164,7 @@ public class DatabaseConnect {
 		return sb.toString();
 	}
     
-	/**
-	 * This method will check if the server is reachable. 
-	 * @param addr - the address you want to check if it is available
-	 * @param openPort - the port you want to access
-	 * @param timeOutMillis - the timeout before you give up
-	 * @return
-	 */
-    private static boolean isReachable(String addr, int openPort, int timeOutMillis) {
-        // Any Open port on other machine
-        // openPort =  22 - ssh, 80 or 443 - webserver, 25 - mailserver etc.
-        try {
-            try (Socket soc = new Socket()) {
-                soc.connect(new InetSocketAddress(addr, openPort), timeOutMillis);
-            }
-            return true;
-        } catch (IOException ex) {
-            return false;
-        }
-    }
+
     
     /**
      * This method logs the user in to the database server
@@ -152,7 +176,7 @@ public class DatabaseConnect {
 
 		String text = String.valueOf(userPassword);
 		
-		if(!isReachable("aber.ac.uk", 80, 100)){
+		if(!haveInternet()){
 			return false;
 		}
 		
@@ -207,7 +231,6 @@ public class DatabaseConnect {
 	 */
 	public ArrayList<Task> getTasks(){
 		ArrayList<Task> tasks = new ArrayList<Task>();
-		System.out.println("test");
 		try{
 			Statement st = connect().createStatement();
 			ResultSet res = st.executeQuery("SELECT * FROM tasks WHERE Status='Allocated' AND MemberAllocated=" + userId);
@@ -281,8 +304,10 @@ public class DatabaseConnect {
 			disconnect();
 		}
 		else{
-			System.err.println("Not logged in or you dont have internett.");
+			System.err.println("Not logged in or you dont have internet.");
+			didItSync = false;
 		}
+		didItSync = true;
 		return tempTasks;	
 	}
 
@@ -349,6 +374,10 @@ public class DatabaseConnect {
 	 */
 	public void setLoggedIn(boolean loggedIn) {
 		this.loggedIn = loggedIn;
+	}
+	
+	public boolean getDidItSync(){
+		return didItSync;
 	}
 	
 }

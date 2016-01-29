@@ -9,6 +9,7 @@ import java.sql.Savepoint;
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -22,12 +23,8 @@ import uk.ac.aber.cs221.group16.controller.Task;
 /**
  * <p>
  * This class generate the graphical user interface for the edit task window. 
- * The following changes still need to be made.
- * Action listeners.
- * Test for bugs
- * Frame disposing 
  * </P>
- * @version 1.0
+ * @version 1.5
  * @author Richard Price-Jones 
  * Edited by - Emil 
  * 
@@ -36,25 +33,21 @@ import uk.ac.aber.cs221.group16.controller.Task;
 public class TaskEditor extends JFrame {
 
 	public JPanel contentPane;
-	private JTextField txtCurrentTask;
-	private boolean setStatusToComplete = false;
+	private JTextField txtCurrentTask; // the description of the curren task, in a text feild where it can be edited
 	int indexOfCurrentTask;
 	private JScrollPane editorPaneScrollBar;
 	JButton SubmitButton; // button you click to submit the changes
 	JButton setToComplete; // button you click to set the task to complete
 
- // Just so we can accsess the tasks.
+	// Just so we can accsess the tasks.
 	Load load; // makes the save and load methods available 
 	JPanel editorPanel; // This is where the task description is edited 
 	String user; // just so the name of the user can be printed
-	
+
 
 	public TaskEditor(Task task, DatabaseConnect connection) {
-		
-		System.out.println(task.getTaskInfo());
-		
+
 		TaskPage taskPage = new TaskPage(connection);
-//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		user = task.getUser(); 
 
 		//**************************** Main Panel *************************
@@ -73,16 +66,15 @@ public class TaskEditor extends JFrame {
 		editorPanel.setLayout(new MigLayout("","[grow]", "[][][][][][grow][]"));
 
 
-		// *************************************** Text fields ***************************
+		// *************************************** Text field ***************************
 		txtCurrentTask = new JTextField();
 		txtCurrentTask.setEditable(false);
 		txtCurrentTask.setText(task.getTitle());
-		editorPanel.add(txtCurrentTask, "cell 0 1,alignx center,aligny center");
 		txtCurrentTask.setColumns(10);
 
 		// Editor pane
 		JTextArea  editorPane = new JTextArea ();
-		
+
 		editorPane.setText(task.getTaskInfo());	
 		editorPane.setLineWrap(true);
 		editorPane.setWrapStyleWord(true);
@@ -94,53 +86,33 @@ public class TaskEditor extends JFrame {
 		SubmitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				// ***************************************** Find the task currently being edited and change the arraylist  **************
-				//Sync local copy with arraylist. 		
 
+				// ***************************************** Find the task currently being edited and change the arraylist  **************	
 				task.setTaskInfo(editorPane.getText());
-				System.out.println(task.getTaskInfo());
-				indexOfCurrentTask = 0;
-				
+				indexOfCurrentTask = 0; 
 
+				// this loop searches through the arraylist to find the index of the selected.
 				for(int i = 0; i < taskPage.getTasks().size(); i++){
 					if(taskPage.getTasks().get(i).getId() == task.getId()){
 						indexOfCurrentTask = i;
 					}
 				}
-				System.out.println(indexOfCurrentTask);
-					
-//				taskPage.tasks.remove(indexOfCurrentTask); // Removing the old version of the task that are currently being edited 
-//				taskPage.tasks.add(task); // adding the new version of the task that are currently being edited 
+
 				taskPage.getTasks().get(indexOfCurrentTask).setTaskInfo(editorPane.getText());
 				taskPage.getTasks().set(indexOfCurrentTask, task);
-				
-			
-//				taskPage.saveAndLoad.save(taskPage.tasks, taskPage.userName);
-				if(setStatusToComplete){
-					taskPage.getTasks().get(indexOfCurrentTask).setStatus("Complete");
-					
-					taskPage.deleteItemFromJList(indexOfCurrentTask);
-					
-				}
-//				taskPage.saveAndLoad.save(taskPage.tasks, taskPage.userName);
-				if(connection.isLoggedIn()){ 			// This will only sync if the user is logged in 
-					connection.sync(taskPage.getTasks());
-				}
-				
-				taskPage.saveAndLoad.save(taskPage.getTasks(), taskPage.getUserName());
-				
+
+				taskPage.getSaveAndLoad().save(taskPage.getTasks(), taskPage.getUserName());
 				connection.sync(taskPage.getTasks());
-				
-				
-				//*********************************************
+
 				dispose();
 			}
-		});	
-		//**********Submit button end ***************//
-		
+		});			//**********Submit button end ***************//
+
+
 		/*Adding Java swing components to the panel*/
 		editorPanel.add(SubmitButton, "cell 0 7,alignx center,aligny center");
 		editorPanel.add(editorPaneScrollBar, "cell 0 4 2 2,grow");
+		editorPanel.add(txtCurrentTask, "cell 0 1,alignx center,aligny center");
 		editorPanel.add(txtCurrentTask, "cell 0 1,alignx center,aligny center");
 	}	
 }

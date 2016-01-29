@@ -109,11 +109,8 @@ public class TaskerLogin extends JFrame {
 
 		// Header
 		header = new JLabel("");
-//		header.setBackground(Color.BLACK);
-//		headerImg = new ImageIcon(this.getClass().getResource(HEADER_IMG_Path)).getImage();
-//		header.setIcon(new ImageIcon(headerImg));
-		
-//		java.net.URL url = ClassLoader.getSystemResource(HEADER_IMG_Path);
+		headerImg = new ImageIcon(this.getClass().getResource(HEADER_IMG_Path)).getImage();
+		header.setIcon(new ImageIcon(headerImg));
 				
 		
 		//Labels 
