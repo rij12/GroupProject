@@ -1,13 +1,15 @@
 package uk.ac.aber.cs221.group16.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
+import java.awt.Color;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
@@ -17,11 +19,10 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.ListDataEvent;
-import javax.swing.event.ListDataListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -42,7 +43,7 @@ public class TaskPage extends JFrame {
 	private JTable table;
 	private JButton editTaskButton;
 	JLabel nameLable;
-	JLabel description;
+	JTextArea description;
 	JPanel mainPanel;
 	JLabel lblCurrentUserInformation;
 	JPanel taskDetailsPanel1;
@@ -58,6 +59,9 @@ public class TaskPage extends JFrame {
 	String userName;
 	private int JListSelectedIndex;
 	private int selected;
+	private Color bg;
+	private JScrollPane scrollBarDescription;
+	private JScrollPane scrollBar;
 
 	private DefaultListModel<String> listModel = new DefaultListModel<>();
 	private JList<String> list = new JList<>(listModel);
@@ -69,17 +73,20 @@ public class TaskPage extends JFrame {
 	public TaskPage(DatabaseConnect connection) {
 		/* Checks if your logged in and decides if to sync app to database */
 		if (connection.isLoggedIn()) {
-			tasks = saveAndLoad.load(connection.getUserName(),
-					connection.isLoggedIn());
+			System.out.println("is logged in");
+			tasks = saveAndLoad.load(connection.getUserName(), connection.isLoggedIn());
 			userName = connection.getUserName();
 			if (tasks != null) {
-				connection.sync(tasks);
+				System.out.println("tasks != null");
+				tasks = connection.sync(tasks);
 				saveAndLoad.save(tasks, userName);
 			} else {
+				System.out.println("tasks == null");
 				tasks = connection.getTasks();
 				saveAndLoad.save(tasks, userName);
 			}
 		} else {
+			System.out.println("not logged in");
 			tasks = saveAndLoad.load(null, connection.isLoggedIn());
 			userName = saveAndLoad.getUserName();
 		}
@@ -98,16 +105,13 @@ public class TaskPage extends JFrame {
 
 		mainPanel = new JPanel();
 		contentPane.add(mainPanel, BorderLayout.CENTER);
-		mainPanel.setLayout(new MigLayout("", "[][grow]", "[][grow][]"));
+		mainPanel.setLayout(new MigLayout("debug", "[][grow]", "[][grow][]"));
 
 		lblCurrentUserInformation = new JLabel(userName);
 		mainPanel.add(lblCurrentUserInformation,
 				"cell 0 0,alignx center, align left, aligny top");
 		lblCurrentUserInformation.repaint();
-		// txtSearchField = new JTextField();
-		// txtSearchField.setText("Search Field");
-		// mainPanel.add(txtSearchField, "cell 0 2,alignx left, aligny top");
-		// txtSearchField.setColumns(10);
+		
 
 		// *******JList***********
 		listSelectionModel
@@ -130,12 +134,19 @@ public class TaskPage extends JFrame {
 		/* Swing components for the displaying the details of the tasks */
 		taskDetailsPanel1 = new JPanel();
 		taskDetailsPanel1
-				.setLayout(new MigLayout("", "[grow]", "[][][][][][]"));
+				.setLayout(new MigLayout("debug", "[grow]", "[][][][][][]"));
 
 		nameLable = new JLabel("Title: ");
 		completionDate = new JLabel("Completion date: ");
 		startDate = new JLabel("Start date: ");
-		description = new JLabel("Task description: ");
+		description = new JTextArea("Task description: ");
+		description.setEditable(false);
+		description.setLineWrap(true);
+		description.setWrapStyleWord(true);
+		description.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
+		description.setMargin(new Insets(0,0,0,0));
+		bg = new Color (233,233,233);
+		description.setBackground(bg);
 
 		/* JList component */
 		list.addListSelectionListener(new ListSelectionListener() {
@@ -143,7 +154,8 @@ public class TaskPage extends JFrame {
 				
 				JListSelectedIndex = getList().getSelectedIndex();
 				String test = list.getSelectedValue();
-				
+				mainPanel.revalidate();
+				mainPanel.repaint();
 				editTaskButton.setEnabled(true);
 				
 				if(JListSelectedIndex >= 0){
@@ -194,33 +206,55 @@ public class TaskPage extends JFrame {
 		rsyncbtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-					
-				tasks.get(JListSelectedIndex).setStatus("Complete");
+
+				JListSelectedIndex = getList().getSelectedIndex();
+				String test = list.getSelectedValue();
 				
-					if (connection.isLoggedIn()) {
-						connection.sync(tasks);
+				editTaskButton.setEnabled(true);
+				
+				if(JListSelectedIndex >= 0){
+					for(int i = 0; i < tasks.size(); i++){
+						if(test.contains(Integer.toString(tasks.get(i).getId()))){
+							selected = i;
+						}
 					}
-					saveAndLoad.save(tasks, connection.getUserName());
-					rsyncbtn.setEnabled(true);
-					deleteItemFromJList(list.getSelectedIndex());
-//					description.setText("Description: " + tasks.get(list.getSelectedIndex()).getTaskInfo());
+				}
+				
+				tasks.get(selected).setStatus("Complete");
+
+				saveAndLoad.save(tasks, userName);
+				if (connection.isLoggedIn()) {
+					connection.sync(tasks);
+				}
+
+				rsyncbtn.setEnabled(true);
+				deleteItemFromJList(list.getSelectedIndex());
+				//					description.setText("Description: " + tasks.get(list.getSelectedIndex()).getTaskInfo());
 			}
 		});
 
 		// ********Adding Swing component to the GUI**********
-
+		
+		scrollBar = new JScrollPane(getList(),
+				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollBarDescription = new JScrollPane(description,
+				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		
 		// *********** Main Panel**********
-		// mainPanel.add(list, "cell 0 1, aligny top, growy");
-		mainPanel.add(taskDetailsPanel1, "cell 1 1, aligny top");
+
+		mainPanel.add(taskDetailsPanel1, "cell 1 1, aligny top, growx, growy");
 		mainPanel.add(editTaskButton, "cell 1 2 ");
 		mainPanel.add(rsyncbtn, "cell 0 2 ");
+		mainPanel.add(scrollBar, "cell 0 1, aligny top, growy, growx 0,wmin 10");
 
 		// *Task details Panel****************************
 		taskDetailsPanel1.add(nameLable, "cell 0 0, aligny top, alignx left, ");
 		taskDetailsPanel1.add(completionDate,
 				"cell 0 1, aligny top, alignx left");
 		taskDetailsPanel1.add(startDate, "cell 0 2, aligny top, alignx left");
-		taskDetailsPanel1.add(description, "cell 0 3, aligny top");
+		taskDetailsPanel1.add(scrollBarDescription, "cell 0 3, aligny top, growy, growx");
 
 		// ***Refreshing GUI Panel Description*******
 		Timer timer = new Timer();
@@ -230,7 +264,7 @@ public class TaskPage extends JFrame {
 				if(list.getSelectedIndex() >= 0){
 					description.setText("Description: " + tasks.get(selected).getTaskInfo());
 					
-					System.out.println(tasks.get(selected).getTaskInfo());
+//					System.out.println(tasks.get(selected).getTaskInfo());
 				}
 			}
 		};
@@ -251,16 +285,10 @@ public class TaskPage extends JFrame {
 
 		
 
-		JScrollPane scrollBar = new JScrollPane(getList(),
-				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		mainPanel.add(scrollBar, "cell 0 1, aligny top, growy");
-		// scrollBar.setViewportView(list);
-
-
-		// Makes shit work
-//		 getListModel().addListDataListener(new JListListener());
-
+////		JScrollPane scrollBar = new JScrollPane(getList(),
+//				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+//				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		
 	}
 
 	/*
@@ -286,6 +314,18 @@ public class TaskPage extends JFrame {
 	public void setListModel(DefaultListModel<String> listModel) {
 		this.listModel = listModel;
 	}
+	
+	public ArrayList<Task> getTasks(){
+		return tasks;
+	}
+	
+	public String getUserName(){
+		return userName;
+	}
+	
+//	public DatabaseConnect getConnection(){
+//		return connection;
+//	}
 
 	/**
 	 * <p>
@@ -297,7 +337,7 @@ public class TaskPage extends JFrame {
 	 * @param indexToBeDeleted
 	 */
 	public void deleteItemFromJList(int number) {
-		int i = list.getSelectedIndex();
+//		int i = list.getSelectedIndex();
 		list.clearSelection();
 		System.err.println("Size of Model -> " + listModel.getSize() + " --- "
 				+ "index -> " + number);

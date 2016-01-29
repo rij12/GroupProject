@@ -4,12 +4,17 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Savepoint;
+
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
 import net.miginfocom.swing.MigLayout;
 import uk.ac.aber.cs221.group16.authenticaion.DatabaseConnect;
 import uk.ac.aber.cs221.group16.controller.Load;
@@ -34,7 +39,7 @@ public class TaskEditor extends JFrame {
 	private JTextField txtCurrentTask;
 	private boolean setStatusToComplete = false;
 	int indexOfCurrentTask;
-
+	private JScrollPane editorPaneScrollBar;
 	JButton SubmitButton; // button you click to submit the changes
 	JButton setToComplete; // button you click to set the task to complete
 
@@ -53,7 +58,7 @@ public class TaskEditor extends JFrame {
 		user = task.getUser(); 
 
 		//**************************** Main Panel *************************
-		setBounds(100, 100, 935, 478);
+		setBounds(100, 100, 900, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -65,7 +70,7 @@ public class TaskEditor extends JFrame {
 		contentPane.add(editorPanel, BorderLayout.CENTER);
 
 		// seting setlout magager for the panel
-		editorPanel.setLayout(new MigLayout("","[grow][grow]", "[][][][][][grow][]"));
+		editorPanel.setLayout(new MigLayout("","[grow]", "[][][][][][grow][]"));
 
 
 		// *************************************** Text fields ***************************
@@ -76,9 +81,12 @@ public class TaskEditor extends JFrame {
 		txtCurrentTask.setColumns(10);
 
 		// Editor pane
-		JEditorPane editorPane = new JEditorPane();
-		editorPanel.add(editorPane, "cell 0 4 2 2,grow");
+		JTextArea  editorPane = new JTextArea ();
+		
 		editorPane.setText(task.getTaskInfo());	
+		editorPane.setLineWrap(true);
+		editorPane.setWrapStyleWord(true);
+		editorPaneScrollBar = new JScrollPane(editorPane,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
 
 		//****************submit button **********************************
@@ -94,8 +102,8 @@ public class TaskEditor extends JFrame {
 				indexOfCurrentTask = 0;
 				
 
-				for(int i = 0; i < taskPage.tasks.size(); i++){
-					if(taskPage.tasks.get(i).getId() == task.getId()){
+				for(int i = 0; i < taskPage.getTasks().size(); i++){
+					if(taskPage.getTasks().get(i).getId() == task.getId()){
 						indexOfCurrentTask = i;
 					}
 				}
@@ -103,40 +111,36 @@ public class TaskEditor extends JFrame {
 					
 //				taskPage.tasks.remove(indexOfCurrentTask); // Removing the old version of the task that are currently being edited 
 //				taskPage.tasks.add(task); // adding the new version of the task that are currently being edited 
-				taskPage.tasks.get(indexOfCurrentTask).setTaskInfo(editorPane.getText());
-				taskPage.tasks.set(indexOfCurrentTask, task);
+				taskPage.getTasks().get(indexOfCurrentTask).setTaskInfo(editorPane.getText());
+				taskPage.getTasks().set(indexOfCurrentTask, task);
 				
 			
 //				taskPage.saveAndLoad.save(taskPage.tasks, taskPage.userName);
 				if(setStatusToComplete){
-					taskPage.tasks.get(indexOfCurrentTask).setStatus("Complete");
+					taskPage.getTasks().get(indexOfCurrentTask).setStatus("Complete");
 					
 					taskPage.deleteItemFromJList(indexOfCurrentTask);
 					
 				}
 //				taskPage.saveAndLoad.save(taskPage.tasks, taskPage.userName);
 				if(connection.isLoggedIn()){ 			// This will only sync if the user is logged in 
-					connection.sync(taskPage.tasks);
+					connection.sync(taskPage.getTasks());
 				}
+				
+				taskPage.saveAndLoad.save(taskPage.getTasks(), taskPage.getUserName());
+				
+				connection.sync(taskPage.getTasks());
+				
 				
 				//*********************************************
 				dispose();
 			}
 		});	
 		//**********Submit button end ***************//
+		
+		/*Adding Java swing components to the panel*/
 		editorPanel.add(SubmitButton, "cell 0 7,alignx center,aligny center");
-
-		setToComplete = new JButton("Completed");
-		setToComplete.addActionListener(new ActionListener(){
-
-			 
-			//*********** Set to complete button1!! ! !! !!! !! ! one ! 111 one
-			public void actionPerformed(ActionEvent e) {
-				setToComplete.setBackground(Color.GREEN);
-				task.setStatus("Complete");
-				setStatusToComplete = true;
-			}		
-		});
-		editorPanel.add(setToComplete, "cell 1 7,alignx center,aligny center");
+		editorPanel.add(editorPaneScrollBar, "cell 0 4 2 2,grow");
+		editorPanel.add(txtCurrentTask, "cell 0 1,alignx center,aligny center");
 	}	
 }

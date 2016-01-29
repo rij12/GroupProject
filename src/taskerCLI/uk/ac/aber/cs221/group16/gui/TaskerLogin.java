@@ -72,7 +72,9 @@ public class TaskerLogin extends JFrame {
 	JLabel header;
 	JLabel usernameLabel;
 	JLabel passwordLabel;
-	JLabel messageLabel;
+	JLabel notificationLabel;
+	JLabel notificationLabelConnection;
+	
 	
 	// Textfields 
 	JTextField userName;
@@ -108,8 +110,8 @@ public class TaskerLogin extends JFrame {
 		// Header
 		header = new JLabel("");
 //		header.setBackground(Color.BLACK);
-		headerImg = new ImageIcon(this.getClass().getResource(HEADER_IMG_Path)).getImage();
-		header.setIcon(new ImageIcon(headerImg));
+//		headerImg = new ImageIcon(this.getClass().getResource(HEADER_IMG_Path)).getImage();
+//		header.setIcon(new ImageIcon(headerImg));
 		
 //		java.net.URL url = ClassLoader.getSystemResource(HEADER_IMG_Path);
 				
@@ -117,7 +119,12 @@ public class TaskerLogin extends JFrame {
 		//Labels 
 		usernameLabel = new JLabel("Username:");
 		passwordLabel = new JLabel("Password:");
-	
+		notificationLabel = new JLabel("Enter a valid email and password.");
+		notificationLabelConnection = new JLabel("Could not connect to database.");
+		notificationLabel.setForeground(Color.RED);
+		notificationLabelConnection.setForeground(Color.RED);
+		notificationLabel.setVisible(false);
+		notificationLabelConnection.setVisible(false);
 
 		// Text fields 
 		userName = new JTextField();
@@ -171,6 +178,10 @@ public class TaskerLogin extends JFrame {
 		panel.add(loginButton, "cell 1 4,left, split 2, gapx 100px,w 100, h 20");
 		panel.add(offlineButton, "cell 1 4, right, gapx 25px, w 100, h 20");
 		
+		// adding the swing message Panels. 
+		panel.add(notificationLabelConnection, "cell 1 5, align center");
+		panel.add(notificationLabel, "cell 1 5, align center");
+		
 //		panel.add(messageLabel, "cell 2 4");
 		// Frame
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
@@ -194,11 +205,15 @@ public class TaskerLogin extends JFrame {
 				dispose();
 			}
 			else{
-				System.out.println("Could not connect");
+				notificationLabelConnection.setVisible(true);
+				frame.repaint();
+				frame.revalidate();
 			}
 		}
 		else{
-			System.out.println("Enter a valid email");
+			notificationLabel.setVisible(true);
+			frame.repaint();
+			frame.revalidate();
 		}
 
 	}

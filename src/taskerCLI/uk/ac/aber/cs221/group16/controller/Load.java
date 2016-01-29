@@ -155,8 +155,12 @@ public class Load {
 			infile.nextLine();
 
 			userName = infile.nextLine();
-			if(username == userName || !isLoggedIn){
-
+			System.out.println("username from file:" + userName);
+			System.out.println("userName from login:" + username);
+			if(!isLoggedIn || userName.equals(username)){
+				
+				System.out.println("in load");
+				
 				// all the tasks 
 				for(int i = 0; i < numTasks; i++){
 					String taskInfo = "";
