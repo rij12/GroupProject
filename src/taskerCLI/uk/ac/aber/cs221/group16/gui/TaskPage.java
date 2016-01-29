@@ -31,11 +31,11 @@ import uk.ac.aber.cs221.group16.controller.Load;
 import uk.ac.aber.cs221.group16.controller.Task;
 
 /**
-*<p>
-* This class Creates the main tasker graphical user interface, 
-* as well as many of the main functionality of the program. Using this class the user can
-* view all the tasks that are assigned to them. In addition to this they can set the task to complete and edit the task comments.
-*</p>
+ *<p>
+ * This class Creates the main tasker graphical user interface, 
+ * as well as many of the main functionality of the program. Using this class the user can
+ * view all the tasks that are assigned to them. In addition to this they can set the task to complete and edit the task comments.
+ *</p>
  * 
  * @author Richard Price-Jones (rij12) 
  * @author Emil Ramsdal (emr18)
@@ -74,8 +74,8 @@ public class TaskPage extends JFrame {
 	private JList<String> list = new JList<>(listModel);
 	private ListSelectionModel listSelectionModel = getList()
 			.getSelectionModel();
-	
-	;
+
+
 
 	public TaskPage(DatabaseConnect connection) {
 		/* Checks if your logged in and decides if to sync app to database */
@@ -115,7 +115,7 @@ public class TaskPage extends JFrame {
 		mainPanel.add(lblCurrentUserInformation,
 				"cell 0 0,alignx center, align left, aligny top");
 		lblCurrentUserInformation.repaint();
-		
+
 
 		// *******JList***********
 		/* Addes Task data into the ListModel, ready to be displayed by the JList*/
@@ -156,7 +156,7 @@ public class TaskPage extends JFrame {
 		/* JList component,  This detects changes, and acts upon them,  */
 		list.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent ev) {
-				
+
 				JListSelectedIndex = getList().getSelectedIndex();
 				String test = list.getSelectedValue();
 				// Refreshing the GUI. 
@@ -164,7 +164,7 @@ public class TaskPage extends JFrame {
 				mainPanel.repaint();
 				// If there is a task then button is available to use. 
 				editTaskButton.setEnabled(true);
-				
+
 				// iterates though the arraylist to search for an item with matching ID and return that Index. 
 				if(JListSelectedIndex >= 0){
 					for(int i = 0; i < tasks.size(); i++){
@@ -186,7 +186,7 @@ public class TaskPage extends JFrame {
 		});
 
 		// **** Editing tasks Swing components **********
-			
+
 		editTaskButton = new JButton("Edit current task");
 		editTaskButton.setEnabled(false);
 		editTaskButton.addActionListener(new ActionListener() {
@@ -211,9 +211,9 @@ public class TaskPage extends JFrame {
 
 				JListSelectedIndex = getList().getSelectedIndex();
 				String test = list.getSelectedValue();
-				
+
 				editTaskButton.setEnabled(true);
-				
+
 				if(JListSelectedIndex >= 0){
 					for(int i = 0; i < tasks.size(); i++){
 						if(test.contains(Integer.toString(tasks.get(i).getId()))){
@@ -277,7 +277,7 @@ public class TaskPage extends JFrame {
 					editTaskButton.setEnabled(false);
 					setToCompleteButton.setEnabled(false);
 					description.setText(" ");
-					
+
 				}
 			}
 		};
@@ -286,20 +286,19 @@ public class TaskPage extends JFrame {
 			@Override
 			public void run() {
 
-					connection.sync(tasks);
-					saveAndLoad.save(tasks, userName);	
-					
-					if(connection.getDidItSync()){
-						System.out.println(connection.getDidItSync());
-						notify.setVisible(true);
-						notify.revalidate();
-						notify.repaint();
-					}
-				
+				connection.sync(tasks);
+				saveAndLoad.save(tasks, userName);	
+
+				if(connection.getDidItSync()){
+					notify.setVisible(true);
+					notify.revalidate();
+					notify.repaint();
+				}
+
 			}
 		};
 		timer.schedule(everyFiveMinute, 0l, 1000*60*5);
-		
+
 		timer.schedule(updateDescription, 0l, 1000);
 
 	}
@@ -322,19 +321,19 @@ public class TaskPage extends JFrame {
 	public void setListModel(DefaultListModel<String> listModel) {
 		this.listModel = listModel;
 	}
-	
+
 	public ArrayList<Task> getTasks(){
 		return tasks;
 	}
-	
+
 	public String getUserName(){
 		return userName;
 	}
-	
+
 	public Load getSaveAndLoad(){
 		return saveAndLoad;
 	}
-	
+
 	/**
 	 * <p>
 	 * This method takes a index of type int, then removes that index from the
@@ -345,10 +344,7 @@ public class TaskPage extends JFrame {
 	 * @param indexToBeDeleted
 	 */
 	public void deleteItemFromJList(int index) {
-System.err.println(index);
 		list.clearSelection();
-		System.err.println("Size of Model -> " + listModel.getSize() + " --- "
-				+ "index -> " + index);
 		if(index >= 0 ){
 			listModel.remove(index);
 			// Setting to default values 
@@ -358,6 +354,5 @@ System.err.println(index);
 			startDate.setText("Start date: " + "Select a task");
 			descriptionLabel.setText(" ");
 		}
-		System.out.println(tasks);
 	}
 }

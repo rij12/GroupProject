@@ -7,8 +7,8 @@
 */
 
 /**
- * This Class handles everything that have to do with save and load of 
- * tasks. 
+ * Creates a Instance of the GUI, this Class starts the program.  
+ * 
  * 
  * @author Richard Price-Jones
  * @version 1
@@ -23,7 +23,7 @@ import javax.swing.JFrame;
 import uk.ac.aber.cs221.group16.gui.TaskerLogin;
 /**
  * <p>
- * Test GUI Main Class
+ *  Starts GUI, in thread safe environment. 
  * </p>
  *  @author Richard Price-Jones 
  *  
@@ -35,9 +35,7 @@ public class MainFrame {
 
 		EventQueue.invokeLater(new Runnable() {
 
-			/**
-			 * This starts the TaskerLogin()
-			 */
+
 			public void run() {
 
 				JFrame LoginApp = new TaskerLogin();

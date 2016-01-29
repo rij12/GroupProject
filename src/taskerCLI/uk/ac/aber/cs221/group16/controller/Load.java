@@ -43,22 +43,14 @@ public class Load {
 
 
 	/**
-	 * 
+	 *  Creates the folder and the file used to store the task on locally. 
 	 */
 	public Load(){
 		path = System.getProperty("user.home") + File.separator + "Documents";
 		path += File.separator + "TaskerCLI";
 		File customDir = new File(path);	
 
-		if (customDir.exists()) {
-		    System.out.println(customDir + " already exists");
-		} else if (customDir.mkdirs()) {
-		    System.out.println(customDir + " was created");
-		} else {
-		    System.out.println(customDir + " was not created");
-		}
-		
-		  file = new File(path +"/" + filename);
+		file = new File(path +"/" + filename);
 	}
 
 	/**
@@ -68,35 +60,6 @@ public class Load {
 	public String getUserName(){
 		return userName;
 	}
-	
-	/**
-	 * used to change the username  - -- --------- not sure if this is needed anymore.. 
-	 * @param theUserName
-	 */
-	public void setUserName(String theUserName){
-		userName = theUserName;
-	}
-
-	/**
-	 * This is something for later 
-	 * 
-	 * hope we have time !
-	 */
-	public void readSaveLocation(){
-		/*psudo code!!
-			if the file is null;
-				start the chooselocation thingy
-
-					saveFolder = chooselocation();
-
-			else
-				read the file location from file
-					saveFolder = from file;
-
-		 */
-
-	}
-
 
 	/**
 	 * This takes the array list with tasks and save them to the choosen save location 
@@ -181,11 +144,7 @@ public class Load {
 			return tasks;
 
 		} catch (FileNotFoundException e) {
-			System.err.println("The file: " + " does not exist. Assuming first use and an empty file." +
-					" If this is not the first use then have you accidentally deleted the file?");
 		} catch (IOException e) {
-			System.err.println("An unexpected error occurred when trying to open the file " + filename);
-			System.err.println(e.getMessage());
 		}catch (NoSuchElementException e){
 
 		}

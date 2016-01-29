@@ -1,21 +1,21 @@
 /*
-* @(#) DatabaseConnect.java
-*
-* Copyright (c) 2016 Group 16 
-* All rights reserved.
-*
-*/
+ * @(#) DatabaseConnect.java
+ *
+ * Copyright (c) 2016 Group 16 
+ * All rights reserved.
+ *
+ */
 
 /**
-* A class that handles all the database connectivity which includes syncronising, 
-* downloading and uploading changes.
-*
-* You should only create one DatabaseConnect() and only use sync() and logIn()
-*
-* @author Emil Ramsdal
-* @since 1  Initial development.
-* @version 1.2  Now works with modified database structure.
-*/
+ * A class that handles all the database connectivity which includes syncronising, 
+ * downloading and uploading changes.
+ *
+ * You should only create one DatabaseConnect() and only use sync() and logIn()
+ *
+ * @author Emil Ramsdal
+ * @since 1  Initial development.
+ * @version 1.2  Now works with modified database structure.
+ */
 
 package uk.ac.aber.cs221.group16.authenticaion;
 
@@ -61,8 +61,8 @@ public class DatabaseConnect {
 	public DatabaseConnect(){
 
 	}
-	
-	
+
+
 
 	/**
 	 * This method returns the username
@@ -71,17 +71,12 @@ public class DatabaseConnect {
 	public String getUserName(){
 		return userName;
 	}
-	/**
-	 * This sets the username, not sure if this is needed...  - -- - - - --  - - - - - - - -  - - - - - - - - - - - - - -
-	 * @param theUserName
-	 */
-	public void setUserName(String theUserName){
-		userName = theUserName;
-	}
-	
-	// ******************************************** Check connection things
-	private boolean checkForInterfaces(){
 
+
+	/**
+	 * Checks for a working networking card that is connect to the internet.
+	 */
+	private boolean checkForInterfaces(){
 
 		Enumeration<NetworkInterface> interfaces = null;
 		try {
@@ -104,7 +99,7 @@ public class DatabaseConnect {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * This method will check if the server is reachable. 
 	 * @param addr - the address you want to check if it is available
@@ -112,30 +107,26 @@ public class DatabaseConnect {
 	 * @param timeOutMillis - the timeout before you give up
 	 * @return
 	 */
-    private static boolean isReachable(String addr, int openPort, int timeOutMillis) {
-        // Any Open port on other machine
-        // openPort =  22 - ssh, 80 or 443 - webserver, 25 - mailserver etc.
-        try {
-            try (Socket soc = new Socket()) {
-                soc.connect(new InetSocketAddress(addr, openPort), timeOutMillis);
-            }
-            return true;
-        } catch (IOException ex) {
-            return false;
-        }
-    }
-    
-    public boolean haveInternet(){
-    	if(!checkForInterfaces()){
-    		return false;
-    	}
-    	else if(!isReachable("aber.ac.uk", 80, 100)){
-    		return false;
-    	}
-    	return true;
-    }
-    
-    // *****************************************************************************
+	private static boolean isReachable(String addr, int openPort, int timeOutMillis) {
+		try {
+			try (Socket soc = new Socket()) {
+				soc.connect(new InetSocketAddress(addr, openPort), timeOutMillis);
+			}
+			return true;
+		} catch (IOException ex) {
+			return false;
+		}
+	}
+
+	public boolean haveInternet(){
+		if(!checkForInterfaces()){
+			return false;
+		}
+		else if(!isReachable("aber.ac.uk", 80, 100)){
+			return false;
+		}
+		return true;
+	}
 
 	/**
 	 * This method is for hashing the password. 
@@ -143,43 +134,43 @@ public class DatabaseConnect {
 	 * @return - the hashed value of the entered password
 	 */
 	private String hashing(String password){
-    	
-        MessageDigest md = null;
+
+		MessageDigest md = null;
 		try {
 			md = MessageDigest.getInstance("SHA-256");
 		} catch (NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        md.update(password.getBytes());
-        
-        byte byteData[] = md.digest();
- 
-        //convert the byte to hex format 
-        StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < byteData.length; i++) {
-         sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
-        }		
-		
+		md.update(password.getBytes());
+
+		byte byteData[] = md.digest();
+
+		//convert the byte to hex format 
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < byteData.length; i++) {
+			sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+		}		
+
 		return sb.toString();
 	}
-    
 
-    
-    /**
-     * This method logs the user in to the database server
-     * @param email - users email 
-     * @param userPassword - this is the password before hashing
-     * @return - a boolean which represent if the user is logged in or not 
-     */
+
+
+	/**
+	 * This method logs the user in to the database server
+	 * @param email - users email 
+	 * @param userPassword - this is the password before hashing
+	 * @return - a boolean which represent if the user is logged in or not 
+	 */
 	public boolean logIn(String email, char[] userPassword){
 
 		String text = String.valueOf(userPassword);
-		
+
 		if(!haveInternet()){
 			return false;
 		}
-		
+
 		try{
 			Connection conn = connect();
 			Statement stmt = conn.createStatement();
@@ -192,8 +183,6 @@ public class DatabaseConnect {
 				while(res.next()){
 					userId = res.getInt("id");
 					userName = res.getString("name");
-					System.out.println("Logged in");
-					System.out.println(userId);
 					loggedIn = true;
 				}
 			}
@@ -207,7 +196,7 @@ public class DatabaseConnect {
 
 
 	/**
-	 * This method is that which make the connection. 
+	 * This method is that which creates the connection. 
 	 * @return a connection, that is used to communicate with the database 
 	 * @throws SQLException
 	 */
@@ -296,11 +285,11 @@ public class DatabaseConnect {
 		if(loggedIn && haveInternet()){
 			ArrayList<Task> serverTasks = new ArrayList<Task>();
 			serverTasks = getTasks();
-	
+
 			tempTasks = checkForNewTasks(tasks, serverTasks);
 			tempTasks= removeDeletedTasks(tempTasks, serverTasks);
 			uploadAllTasks(tempTasks);
-		
+
 			disconnect();
 		}
 		else{
@@ -354,7 +343,7 @@ public class DatabaseConnect {
 			}
 
 		}catch(ConcurrentModificationException e){
-			//			e.printStackTrace();
+
 		}
 
 		return tasks;
@@ -367,7 +356,7 @@ public class DatabaseConnect {
 	public boolean isLoggedIn() {
 		return loggedIn;
 	}
- 
+
 	/**
 	 * Sets the status og the login.
 	 * @param loggedIn
@@ -375,9 +364,9 @@ public class DatabaseConnect {
 	public void setLoggedIn(boolean loggedIn) {
 		this.loggedIn = loggedIn;
 	}
-	
+
 	public boolean getDidItSync(){
 		return didItSync;
 	}
-	
+
 }
