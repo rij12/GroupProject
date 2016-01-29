@@ -1,0 +1,124 @@
+/* Exclusive styles for pages: members.php, membersEdit.php, membersInfo.php, removeMember.php  */
+.members{		/* Members boxes for Members page */
+	height: 180px;
+	width: 150px;
+	float: left;
+	position: block;
+	margin-left: 112.5px;
+	margin-top: 50px;
+}
+
+.membersName{
+	height: 30px;
+	width: 100%;
+	font-family: tahoma;
+	text-align: center;
+}
+
+.membersProfile{
+	height: 150px;
+	width: 148px;
+	border: solid 1px black;
+}
+
+#membersInfoBodyMain{		/* Information part of the body */
+	height: 450px;
+	width: 100%;
+	border-top: 1px solid white;
+}
+
+#edit{		/* Edit button to Edit Members page */
+	height: 60px;
+	width: 70px;
+	float: right;
+	margin-top:1px;
+	background-image: url(../../images/edit.png);
+	border-bottom: 1px solid #b3b3b3;
+}
+
+#bodyLeft{		/* Left and Right body used to split members info layout */
+	width: 298px;
+	height: 448px;
+	float: left;
+	border-right: 1px solid #b3b3b3;
+	border-top: 1px solid white;
+}
+
+#bodyRight{
+	width: 599px;
+	height: 448px;
+	float: right;
+	border-left: 1px solid white;
+	border-top: 1px solid white;
+}
+
+#porfolio{
+	height: 247px;
+	width: 199px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 40px;
+	border: 1px solid #666666;
+	border-radius: 2px;
+	background-image: url(../../images/portfolio.png);
+}
+
+/* Field for information description */
+.nameArea{
+	margin-left: 50px;
+	height: 20px;
+	width: 120px;
+	margin-top: 50px;
+	font-family: tahoma;
+	float: left;
+	text-align: right;
+}
+
+/* Field for information display */
+.name{
+	height: 20px;
+	width: 400px;
+	margin-top: 50px;
+	font-family: tahoma;
+	float: left;
+	text-indent: 25px;
+}
+
+/* Buttons styles*/
+
+#submit{
+	height: 100px;
+	width: 100px;
+	font-family: tahoma;
+	float: left;
+	text-align: right;
+}
+
+#memberAdd{
+	height: 38px;
+	width: 150px;
+	float: left;
+	margin-left: 245px;
+	margin-top: 25px;
+	border: solid white 1px;
+	background-color: green;
+	color: white;
+	font-family: tahoma;
+	text-align: center;
+	padding-top: 15px;
+	margin-bottom: 20px;
+}
+
+#memberRemove{
+	height: 37.5px;
+	width: 150px;
+	float: right;
+	margin-right: 245px;
+	margin-top: 25px;
+	border: solid white 1px;
+	background-color: red;
+	color: white;
+	font-family: tahoma;
+	text-align: center;
+	padding-top: 15px;
+}

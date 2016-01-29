@@ -1,22 +1,24 @@
+<!DOCTYPE html>
 <html>
     <head> 
         <title> Tasks </title>
-        <link rel="stylesheet" type="text/css" href="styles.css">
-        <link rel="stylesheet" type="text/css" href="tasksStyles.css">
+        <!-- CSS style sheets used within the page are declared here -->
+        <link rel="stylesheet" type="text/css" href="includes/css/styles.css">
+        <link rel="stylesheet" type="text/css" href="includes/css/tasksStyles.css">
     </head>
     <body>
 
-
+		<!-- PHP files used within the page are declared here -->
         <?php
-        require 'connect.php';
+        require 'includes/php/connect.php';
         ?>
 
         <div id = "container"> 
-           <?php include 'menu.php'; ?>
+           <?php include 'includes/php/menu.php'; ?>
             <div id ="bodyContainer">
 
 <?php
-require 'connect.php';
+require 'includes/php/connect.php';
 
 $id = isset($_GET['TaskID']) ? $_GET['TaskID'] : 1;
 
@@ -25,12 +27,13 @@ $result = $con->query($sql);
 
 if ($result->num_rows > 0) {
 
-    while ($row = $result->fetch_assoc()) {
+    while ($row = $result->fetch_assoc()) {		// Gather all information on task from database
 
 		$startdate = $row['StartDate'];
 		$completedate = $row['DateOfCompletion'];
 		$comments = $row['Comments'];
 		$member = $row['MemberAllocated'];
+		$status = $row['Status'];
 
         echo '	<div id ="body">
 				<div id = "editTaskBodyMain">
@@ -56,6 +59,10 @@ if ($result->num_rows > 0) {
 						<div class = "editDescriptionInfo"> ' . $completedate . '</div>
 					</div>
 					<div class = "viewTaskOptions">
+						<div class = "editDescription">Task Status:</div>
+						<div class = "editDescriptionInfo"> ' . $status . '</div>
+					</div>
+					<div class = "viewTaskOptions">
 						<div class = "editDescription">Task Elements:</div>
 						<div class = "taskElements"> ' . $comments . '</div>
 					</div>
@@ -64,10 +71,10 @@ if ($result->num_rows > 0) {
     }
 } else {
     echo "0 results";
-}
+}	//Disconnect
 $con->close();
-?>
-                <a href = "viewTasks.php"><div id = "return">Return</div></a>
+?>			
+                <a href = "viewTasks.php"><div id = "return">Return</div></a> <!-- return to tasks page -->
             </div>
         </div>
     </div>

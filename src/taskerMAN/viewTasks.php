@@ -1,20 +1,23 @@
+<!DOCTYPE html>
 <html>
     <head>
         <title> Tasks </title>
-        <link rel="stylesheet" type="text/css" href="styles.css">
-        <link rel="stylesheet" type="text/css" href="tasksStyles.css">
+        <!-- CSS style sheets used within the page are declared here -->
+        <link rel="stylesheet" type="text/css" href="includes/css/styles.css">
+        <link rel="stylesheet" type="text/css" href="includes/css/tasksStyles.css">
     </head>
     <body>
+        <!--PHP files used within the page are declared here -->
         <?php
-        require 'connect.php';
+        require 'includes/php/connect.php';
         ?>
 
         <div id = "container">
-            <?php include 'menu.php'; ?>
+            <?php include 'includes/php/menu.php'; ?>
             <div id ="bodyContainer">
                 <div id ="body">
 
-                    <div id = "bodyMain">
+                    <div id = "bodyMain">       <!-- Displays all tasks from the database, with a short summary of information of each -->
                         <?php
                         $sql = "SELECT * FROM tasks";
                         $result = $con->query($sql);
@@ -39,7 +42,7 @@
                             }
                         } else {
                             echo "0 results";
-                        }
+                        }   //disconnect
                         $con->close();
                         
                         ?>

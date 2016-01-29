@@ -1,0 +1,98 @@
+/* Exclusive styles for pages: createTask.php, editTask.php, viewTask.php, viewTasks.php */
+
+/* Styles for pages involving tasks that will not be nessessary in other pages, and so exlusive. */
+
+input{
+	height: 25px;
+	width: 550px;
+	margin-left: 25px;
+}
+
+
+/* Information fields for task pages */
+.viewTaskOptions{
+	height: 55px;
+	width: 100%;
+	padding-top: 15px;
+}
+
+.taskDescription{
+	float: left;
+	min-height: 30px;
+	width: 700px;
+	background-color: white;
+	border: solid 1px black;
+	margin-left: 25px;
+	padding-top: 10px;
+	font-family: arial;
+	text-align: center;
+}
+
+.taskOptions{
+	float: left;
+	width: 50px;
+	height: 30px;
+	margin-left: 30px;
+	background-color: white;
+	border: solid 1px black;
+	padding-top: 10px;
+	font-family: arial;
+	text-align: center;
+}
+
+/* Input fields for task pages */
+.editDescription{
+	float: left;
+	text-align: right;
+	height: 30px;
+	width: 250px;
+	margin-left: 25px;
+	padding-top: 10px;
+	font-family: arial;
+}
+
+.editDescriptionInfo{
+	float: left;
+	height: 30px;
+	width: 550px;
+	background-color: white;
+	border: solid 1px black;
+	margin-left: 25px;
+	padding-left: 10px;
+	padding-top: 10px;
+	font-family: arial;
+	text-align: left;
+}
+
+.taskElements{
+	float: left;
+	height: 150px;
+	width: 550px;
+	background-color: white;
+	border: solid 1px black;
+	margin-left: 25px;
+	padding-top: 10px;
+	padding-left: 10px;
+	font-family: arial;
+	text-align: left; 
+}
+
+/*button styles*/
+
+#submit{
+	height: 57.5px;
+	width: 175px;
+	background-color: green;
+	border: solid 1px white;
+	color: white;
+	margin-left: 275px;
+}
+
+#cancel{
+	height: 50px;
+	width: 200px;
+	background-color: red;
+	border: solid 1px black;
+	margin-left: 75px;
+	margin-top: 150px;
+}

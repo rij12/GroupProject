@@ -1,5 +1,22 @@
-package uk.ac.aber.cs221.group16.controller;
+/*
+* @(#) Task.java
+*
+* Copyright (c) 2016 Group 16 
+* All rights reserved.
+*
+*/
 
+/**
+ * This class defines what a task looks like and provdies the methods that are used 
+ * for updating them. 
+ * 
+ * @author Emil Ramsdal
+ * @see MainFrame.java
+ * @version 1
+ * 
+ */
+
+package uk.ac.aber.cs221.group16.controller;
 
 public class Task {
 	
