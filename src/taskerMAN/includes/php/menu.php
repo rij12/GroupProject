@@ -1,6 +1,7 @@
 <?php
+session_save_path("/aber/djt/tmp");
 session_start();
-if( !isset($_SESSION["login"]) ){
+if( !isset($_SESSION["daajkhjkhjhk"]) ){
 	$url = "../../index.php";
 	header("Location: $url");
 	session_destroy();

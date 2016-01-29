@@ -27,6 +27,9 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
+
+import com.mysql.jdbc.UpdatableResultSet;
+
 import uk.ac.aber.cs221.group16.controller.Task;
 
 
@@ -204,6 +207,7 @@ public class DatabaseConnect {
 	 */
 	public ArrayList<Task> getTasks(){
 		ArrayList<Task> tasks = new ArrayList<Task>();
+		System.out.println("test");
 		try{
 			Statement st = connect().createStatement();
 			ResultSet res = st.executeQuery("SELECT * FROM tasks WHERE Status='Allocated' AND MemberAllocated=" + userId);
@@ -235,7 +239,7 @@ public class DatabaseConnect {
 			for(Task t : tasks){
 				String id = Integer.toString(t.getId());
 				String update = ("UPDATE tasks SET Comments='" + t.getTaskInfo() + "',"
-						+ " Status='" + t.getStatus() + "' WHERE TaskID='" + id + "'");
+						+ " Status='" + t.getStatus() + "' WHERE TaskID=" + id + "");
 
 				@SuppressWarnings("unused")
 				int somehing = stmt.executeUpdate(update);
@@ -265,16 +269,21 @@ public class DatabaseConnect {
 	 * @return the updated task list
 	 */
 	public ArrayList<Task> sync(ArrayList<Task> tasks){
+		ArrayList<Task> tempTasks = new ArrayList<Task>();
 		if(loggedIn && haveInternet()){
-			tasks = removeDeletedTasks(checkForNewTasks(tasks));
-			uploadAllTasks(tasks);
-			
+			ArrayList<Task> serverTasks = new ArrayList<Task>();
+			serverTasks = getTasks();
+	
+			tempTasks = checkForNewTasks(tasks, serverTasks);
+			tempTasks= removeDeletedTasks(tempTasks, serverTasks);
+			uploadAllTasks(tempTasks);
+		
 			disconnect();
 		}
 		else{
 			System.err.println("Not logged in or you dont have internett.");
 		}
-		return getTasks();	
+		return tempTasks;	
 	}
 
 
@@ -283,19 +292,17 @@ public class DatabaseConnect {
 	 * @param tasks -> the local tasks that it will check against the server 
 	 * @return -> the updated tasklist after downloading the new ones. 
 	 */
-	private ArrayList<Task> checkForNewTasks(ArrayList<Task> tasks){
-		ArrayList<Task> serverTasks = new ArrayList<Task>();
-		serverTasks = getTasks();
+	private ArrayList<Task> checkForNewTasks(ArrayList<Task> tasks, ArrayList<Task> serverTasks){
 		for(Task t: serverTasks){
-			boolean exist = true;
+			boolean isNew = true;
 			if(tasks !=null){
 				for(Task t1 : tasks){
 					if(t.getId() == (t1.getId())){
-						exist = false;
+						isNew = false;
 					}
 				}
 			}
-			if(exist){
+			if(isNew){
 				tasks.add(t);
 			}
 		}
@@ -307,9 +314,7 @@ public class DatabaseConnect {
 	 * @param tasks -> the local tasks 
 	 * @return
 	 */
-	private ArrayList<Task> removeDeletedTasks(ArrayList<Task> tasks){
-		ArrayList<Task> serverTasks = new ArrayList<Task>();
-		serverTasks = getTasks();
+	private ArrayList<Task> removeDeletedTasks(ArrayList<Task> tasks, ArrayList<Task> serverTasks){
 		try{
 			for(Task t : tasks){
 				boolean exist = false;

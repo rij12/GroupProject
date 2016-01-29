@@ -1,11 +1,16 @@
+<<<<<<< HEAD
 <?php //Session start to allow for only users with permission to enter website
+=======
+<?php
+session_save_path("/aber/djt/tmp");
+>>>>>>> origin/master
 session_start();
-if( !isset($_SESSION["login"]) ){
+if( !isset($_SESSION["daajkhjkhjhk"]) ){
 	$url = "index.php";
 	header("Location: $url");
 	session_destroy();
 }
-$name = $_SESSION["login"];
+$name = $_SESSION["daajkhjkhjhk"];
 
 ?>
 <!DOCTYPE html>

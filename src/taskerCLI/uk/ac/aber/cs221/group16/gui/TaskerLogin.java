@@ -30,9 +30,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
+import java.net.Inet4Address;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -69,6 +72,9 @@ public class TaskerLogin extends JFrame {
 	JLabel header;
 	JLabel usernameLabel;
 	JLabel passwordLabel;
+	JLabel notificationLabel;
+	JLabel notificationLabelConnection;
+	
 	
 	// Textfields 
 	JTextField userName;
@@ -81,6 +87,14 @@ public class TaskerLogin extends JFrame {
 	//images
 	Image headerImg;
 
+	
+	private Pattern pattern;
+	private Matcher matcher;
+	
+	private static final String EMAIL_PATTERN = 
+			"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+			+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+	
 	public TaskerLogin() {
 		
 		connection = new DatabaseConnect();
@@ -96,16 +110,24 @@ public class TaskerLogin extends JFrame {
 		// Header
 		header = new JLabel("");
 //		header.setBackground(Color.BLACK);
-		headerImg = new ImageIcon(this.getClass().getResource(HEADER_IMG_Path)).getImage();
-		header.setIcon(new ImageIcon(headerImg));
+//		headerImg = new ImageIcon(this.getClass().getResource(HEADER_IMG_Path)).getImage();
+//		header.setIcon(new ImageIcon(headerImg));
+		
+//		java.net.URL url = ClassLoader.getSystemResource(HEADER_IMG_Path);
 				
 		
-		// User name
+		//Labels 
 		usernameLabel = new JLabel("Username:");
-		userName = new JTextField();
-
-		// Password
 		passwordLabel = new JLabel("Password:");
+		notificationLabel = new JLabel("Enter a valid email and password.");
+		notificationLabelConnection = new JLabel("Could not connect to database.");
+		notificationLabel.setForeground(Color.RED);
+		notificationLabelConnection.setForeground(Color.RED);
+		notificationLabel.setVisible(false);
+		notificationLabelConnection.setVisible(false);
+
+		// Text fields 
+		userName = new JTextField();
 		passwordField = new JPasswordField();
 		
 		// Login Button
@@ -142,7 +164,6 @@ public class TaskerLogin extends JFrame {
 				    }			
 				});
 		
-
 		
 		// ADD swing Components
 		panel.add(header, "cell 1 0,alignx center,aligny center");
@@ -156,6 +177,12 @@ public class TaskerLogin extends JFrame {
 		//
 		panel.add(loginButton, "cell 1 4,left, split 2, gapx 100px,w 100, h 20");
 		panel.add(offlineButton, "cell 1 4, right, gapx 25px, w 100, h 20");
+		
+		// adding the swing message Panels. 
+		panel.add(notificationLabelConnection, "cell 1 5, align center");
+		panel.add(notificationLabel, "cell 1 5, align center");
+		
+//		panel.add(messageLabel, "cell 2 4");
 		// Frame
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
 		frame.pack();
@@ -168,18 +195,43 @@ public class TaskerLogin extends JFrame {
 	
 	public void logIn(){
 		connection.logIn(userName.getText(), passwordField.getPassword());
-		if(connection.isLoggedIn()){
-		
-		TaskPage mainPage = new TaskPage(connection);
-		frame.setVisible(false);
-		mainPage.setVisible(true);
-		System.err.println("LoginPage to TaskPage");
-		dispose();
+		if(validate(userName.getText())){
+			if(connection.isLoggedIn()){
+
+				TaskPage mainPage = new TaskPage(connection);
+				frame.setVisible(false);
+				mainPage.setVisible(true);
+				System.err.println("LoginPage to TaskPage");
+				dispose();
+			}
+			else{
+				notificationLabelConnection.setVisible(true);
+				frame.repaint();
+				frame.revalidate();
+			}
 		}
 		else{
-			System.out.println("Something wrong");
+			notificationLabel.setVisible(true);
+			frame.repaint();
+			frame.revalidate();
 		}
+
 	}
 	
 
+	/**
+	 * Validate Email with regular expression
+	 * 
+	 * @param hex
+	 *            hex for validation
+	 * @return true valid hex, false invalid hex
+	 */
+	public boolean validate(final String hex) {
+		
+		pattern = Pattern.compile(EMAIL_PATTERN);
+
+		matcher = pattern.matcher(hex);
+		return matcher.matches();
+
+	}	
 }
